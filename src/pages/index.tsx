@@ -17,7 +17,9 @@ function Home ({state}: modalProps) {
         <button className="rounded bg-slate-300 p-2" onClick={()=>setModalOpen(!modalOpen)}>
           Add item +
         </button>
-        {/* This is wrong for now <div>{books.data?.map((book)=>book.name)}</div> */}
+        <div>
+          {JSON.stringify(books.data)}
+        </div>
         {modalOpen ? <AddItemModal /> : null}
       </div>
     </>
