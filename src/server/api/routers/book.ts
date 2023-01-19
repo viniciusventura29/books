@@ -10,8 +10,13 @@ export const bookRouter = createTRPCRouter({
         author: z.string(),
         category: z.string()
     }))
-    .query(({input})=>{
+    .mutation(({input})=>{
         return input
+    }),
+
+    getAll: publicProcedure
+    .query(({ctx})=>{
+        return ctx.prisma.book.findMany();
     })
     
 })
