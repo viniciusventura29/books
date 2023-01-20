@@ -6,12 +6,14 @@ export const userRouter = createTRPCRouter({
     .input(z.object({
         name: z.string(),
         email: z.string(),
+        password: z.string(),
     }))
     .mutation(async({ctx, input})=>{
         const users = await ctx.prisma.user.create({
             data:{
                 name:input.name,
-                email:input.name
+                email:input.name,
+                password: input.password
             }
         })
 
