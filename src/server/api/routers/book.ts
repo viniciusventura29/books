@@ -2,7 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const bookRouter = createTRPCRouter({
-    createBook: protectedProcedure
+    createBook: publicProcedure
     .input(z.object({
         name: z.string(),
         description: z.string(),
@@ -16,7 +16,7 @@ export const bookRouter = createTRPCRouter({
                 name: input.name,
                 description: input.description,
                 body: input.body,
-                userId: input.author,
+                userId: 'cld4hwuix00025t7rp5geo75x',
                 category: input.category,
             },
         })
