@@ -1,7 +1,7 @@
 import NextAuth, { Awaitable, RequestInternal, User, type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import CredentialsProvider from "next-auth/providers/credentials"
-// Prisma adapter for NextAuth, optional and can be removed
+import {v4 as uuidV4} from 'uuid'
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         console.log(req)
-        const user = {id:"adf", email: credentials?.email, name:credentials?.password}
+        const user = {id:uuidV4(), email: credentials?.email, name:credentials?.password}
         return user;
     }
   })
