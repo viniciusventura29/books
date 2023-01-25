@@ -1,43 +1,38 @@
-import NextAuth, { Awaitable, RequestInternal, User, type NextAuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-import CredentialsProvider from "next-auth/providers/credentials"
-import {v4 as uuidV4} from 'uuid'
+// Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "NextAuthCredentials",
-      credentials: {
-        email: { label: "Email", type: "email", placeholder: "jsmith@example.com" },
-        password: { label: "Password", type: "password" }
-      },
-      async authorize(credentials: { email: any; password: any; }, req: any) {
-        console.log(req)
-        const user = {id:uuidV4(), email: credentials?.email, name:credentials?.password}
-        return user;
-    }
-  })
-  ],
-
-  session: {
-    strategy: "jwt",
-  },
-
-  callbacks:{
-    jwt: async ({ token, user }) => {
-      user && (token.user = user);
-      return token;
-    },
-    session: async ({ session, token }) => {
-      session.user = token.user;  // Setting token in session
+  // Include user.id on session
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
       return session;
     },
-  }
-  
-
+  },
+  // Configure one or more authentication providers
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    DiscordProvider({
+      clientId: env.DISCORD_CLIENT_ID,
+      clientSecret: env.DISCORD_CLIENT_SECRET,
+    }),
+    /**
+     * ...add more providers here
+     *
+     * Most other providers require a bit more work than the Discord provider.
+     * For example, the GitHub provider requires you to add the
+     * `refresh_token_expires_in` field to the Account model. Refer to the
+     * NextAuth.js docs for the provider you want to use. Example:
+     * @see https://next-auth.js.org/providers/github
+     */
+  ],
 };
 
 export default NextAuth(authOptions);
