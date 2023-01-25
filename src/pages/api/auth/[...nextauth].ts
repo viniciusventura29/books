@@ -7,7 +7,6 @@ import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
       name: "NextAuthCredentials",
@@ -15,7 +14,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "jsmith@example.com" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials: { email: any; password: any; }, req: any) {
         console.log(req)
         const user = {id:uuidV4(), email: credentials?.email, name:credentials?.password}
         return user;
