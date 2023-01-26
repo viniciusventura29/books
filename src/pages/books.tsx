@@ -2,23 +2,32 @@ import { useSession } from "next-auth/react"
 import { FormEvent, useState } from "react"
 import { api } from "../utils/api"
 
+interface IBook{
+  name: string;
+  description: string;
+  category: string;
+  userId: string
+}
+
 export default function Books(){
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('')
     const {mutate} = api.book.createBook.useMutation();
     const {data: sessionData} = useSession()
+    const books = api.book.getAll.useQuery();
 
-    const createBook =(e: FormEvent)=>[
-        console.log(sessionData),
+    const createBook =(e: FormEvent)=>{
+        console.log(sessionData)
+        console.log(sessionData?.user?.id)
         e.preventDefault()
         // mutate({
         //     name,
         //     description,
         //     category,
-        //     userId:"sad"
+        //     userId: "cldd0c35t0000nv5cpek1xee9",
         // })
-    ]
+      }
 
     return(
         <div className="transition duration-700 ease-in-out min-h-screen bg-gray-100 dark:bg-slate-900">
@@ -33,6 +42,14 @@ export default function Books(){
             Add +
           </button>
             </form>
+            <div className="grid grid-cols-4 grid-flow-col gap-4">
+            {books.data?.map((book)=>(
+              <div className="border-2 border-500-gray rounded p-5"><h2 className="text-2xl font-semibold">{book.name}</h2>
+              <p className="mt-1">{book.description}</p>
+              <p className="mt-4 text-gray-400 italic flex justify-end">{book.category}</p>
+              </div>
+            ))}
+            </div>
         </div>
     )
 }
