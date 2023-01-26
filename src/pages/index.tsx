@@ -2,11 +2,19 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import Router from 'next/router'
 import { api } from "../utils/api";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const {data: sessionData} = useSession()
+
+  useEffect(()=>{
+    if (sessionData===null){
+      void Router.push('/login')
+    }
+  })
 
   return (
     <>
