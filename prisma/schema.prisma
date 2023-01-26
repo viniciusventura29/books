@@ -37,7 +37,6 @@ model User {
     name          String?
     email         String?   @unique
     password      String?
-    emailVerified DateTime?
     image         String?
     book          book[]
 }
