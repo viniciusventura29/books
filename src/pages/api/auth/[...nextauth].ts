@@ -25,11 +25,16 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         console.log({ credentials });
 
-        return {
-          id:"dasdas",
-          name:"Vinicius",
-          email:"viniciusventura29@gmail.com"
-        };
+        const user = prisma?.user.findFirst({
+          where: {
+            email: credentials?.email,
+            password: credentials?.password
+          }
+        })
+
+        if (!user) return null
+
+        return user;
       },
     }),
   ],

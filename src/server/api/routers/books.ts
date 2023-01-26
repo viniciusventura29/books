@@ -23,7 +23,6 @@ export const bookRouter = createTRPCRouter({
 
     getAll: protectedProcedure
     .query(({ctx})=>{
-        
         return ctx.prisma.book.findMany();
     }),
     
