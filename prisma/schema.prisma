@@ -20,23 +20,43 @@ model Example {
     updatedAt DateTime @updatedAt
 }
 
-model book {
+model Book {
     id          String   @id @default(cuid())
     userId      String
     name        String
     description String
-    body        String
     category    String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    texts       Texts[]
+    toDos       ToDo[]
     user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Texts {
+    id        String   @id @default(cuid())
+    bookId    String
+    title     String
+    body      String
+    category  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+}
+
+model ToDo {
+    id    String  @id @default(cuid())
+    bookId    String
+    check Boolean
+    title String
+    book  Book    @relation(fields: [bookId], references: [id], onDelete: Cascade)
+}
+
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    password      String?
-    image         String?
-    book          book[]
+    id       String  @id @default(cuid())
+    name     String?
+    email    String? @unique
+    password String?
+    image    String?
+    book     Book[]
 }
