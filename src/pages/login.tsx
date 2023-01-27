@@ -1,6 +1,7 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -92,12 +93,12 @@ export default function Login() {
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Dont have an account yet?{" "}
-                <a
+                <Link
                   href="/register"
                   className="text-primary-600 dark:text-primary-500 font-medium hover:underline"
                 >
                   Sign up
-                </a>
+                </Link>
               </p>
             </form>
           </div>
