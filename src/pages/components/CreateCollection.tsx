@@ -1,14 +1,19 @@
 import { useSession } from "next-auth/react";
-import { FormEvent, useState } from "react";
+import type { Dispatch, FormEvent, SetStateAction} from "react";
+import { useState } from "react";
 import { api } from "../../utils/api";
 
-export default function CreateCollection() {
+export interface ICreateCollectionProps{
+  props: Dispatch<SetStateAction<boolean>>
+}
+
+export default function CreateCollection({props}:ICreateCollectionProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const { mutate } = api.book.createBook.useMutation();
   const { data: sessionData } = useSession();
-  const [modal, setModal] = useState(false)
+
 
   const createBook = (e: FormEvent) => {
     console.log(sessionData);
@@ -18,7 +23,7 @@ export default function CreateCollection() {
       name,
       description,
       category,
-      userId: "clddd4cx30000ht3c6rqpmj9o",
+      userId: "cldcbw86b0000wdpslmqtirsl",
     });
   };
 
@@ -61,7 +66,7 @@ export default function CreateCollection() {
         >
           Add +
         </button>
-        <button type="submit" onClick={()=>setModal(false)} className="h-10 border-2 rounded border-red-500 p-1 px-10 text-red-600 duration-500 hover:bg-red-100">Cancel</button>
+        <button type="submit" onClick={()=>props(false)} className="h-10 border-2 rounded border-red-500 p-1 px-10 text-red-600 duration-500 hover:bg-red-100">Cancel</button>
       </form>
     </div>
   );
