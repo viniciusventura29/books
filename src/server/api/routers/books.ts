@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { any, z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const bookRouter = createTRPCRouter({
@@ -20,6 +20,19 @@ export const bookRouter = createTRPCRouter({
         })
         return books
     }),
+
+    deleteBook: protectedProcedure.input(
+        z.object({
+            bookId: z.string(), 
+        })
+    ).mutation(async({ctx, input})=>{
+
+        await prisma?.book.delete({
+            where: {
+                id: input.bookId,
+            }
+        })
+        }),
 
     getAll: protectedProcedure
     .query(({ctx})=>{
