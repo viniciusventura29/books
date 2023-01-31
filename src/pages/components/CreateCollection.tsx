@@ -29,7 +29,6 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
       name,
       description,
       category,
-      userId: "cldd0c35t0000nv5cpek1xee9",
     });
     setName('')
     setDescription('')

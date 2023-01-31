@@ -6,7 +6,6 @@ export const bookRouter = createTRPCRouter({
     .input(z.object({
         name: z.string(),
         description: z.string(),
-        userId: z.string(),
         category: z.string()
     }))
     .mutation(async({ctx, input})=>{
@@ -14,7 +13,7 @@ export const bookRouter = createTRPCRouter({
             data:{
                 name: input.name,
                 description: input.description,
-                userId: input.userId,
+                userId: ctx.session.user.id,
                 category: input.category,
             },
         })
