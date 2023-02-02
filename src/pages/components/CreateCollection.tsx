@@ -36,10 +36,11 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
   };
 
   return (
-    <div className={`${isOpen ? 'visible' : 'invisible'} mt-2 w-2/3 items-stretch rounded bg-slate-200 p-5`}>
+    <div onBlur={()=>setIsOpen(false)} className={`${isOpen ? 'visible' : 'invisible'} mt-2 items-stretch rounded bg-gray-100 py-7 px-10 shadow px w-5/6`}>
       <form
         onSubmit={createBook}
         className="space-x-3"
+        
       >
         <input
           onChange={(e) => {
@@ -48,7 +49,7 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
           value={name}
           type="text"
           placeholder="title"
-          className="rounded border-2 border-gray-600 p-2 transition duration-700 ease-in-out dark:bg-slate-800 dark:text-gray-200"
+          className="rounded border-2 border-gray-500 p-2 transition duration-700 ease-in-out dark:bg-slate-800 dark:text-gray-200"
         />
         <input
           onChange={(e) => {
@@ -57,7 +58,7 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
           value={description}
           type="text"
           placeholder="description"
-          className="rounded border-2 border-gray-600 p-2 transition duration-700 ease-in-out dark:bg-slate-800 dark:text-gray-200"
+          className="rounded border-2 border-gray-500 p-2 transition duration-700 ease-in-out dark:bg-slate-800 dark:text-gray-200"
         />
         <input
           onChange={(e) => {
@@ -66,7 +67,7 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
           value={category}
           type="text"
           placeholder="category"
-          className="rounded border-2 border-gray-600 p-2 transition duration-700 ease-in-out dark:bg-slate-800 dark:text-gray-200"
+          className="rounded border-2 border-gray-500 p-2 transition duration-700 ease-in-out dark:bg-slate-800 dark:text-gray-200"
         />
         <button
           type="submit"
