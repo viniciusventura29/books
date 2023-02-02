@@ -1,6 +1,7 @@
 import { Key, useState } from "react";
 import { RouterOutputs, api } from "../utils/api";
 import CreateCollection from "./components/CreateCollection";
+import Link from "next/link";
 
 const OptionsComponent = ({ id, showOptions }: { id: string, showOptions: boolean }) => {
   const util = api.useContext();
@@ -59,7 +60,7 @@ export default function Books() {
         </div>
 
         <div className="grid grid-cols-4 grid-flow-row gap-4 mt-20">
-          {books.data?.map((book) => <BookCard key={book.id} book={book} />)}
+          {books.data?.map((book) => <Link href={`/books/${book.id}`}><BookCard key={book.id} book={book} /></Link>)}
         </div>
       </div>
     </div>
