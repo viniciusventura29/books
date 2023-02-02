@@ -6,16 +6,16 @@ const OptionsComponent = ({ id, showOptions }: { id: string, showOptions: boolea
   const util = api.useContext();
   const deleteBook = api.book.deleteBook.useMutation({
     onSuccess: () => {
-      util.book.getAll.invalidate();
+      util.book.getAll.invalidate()
     }
   });
 
   return (
-    <div key={id} className={`${showOptions ? '' : "invisible"} absolute bg-gray-200 rounded flex flex-col items-end z-10`}>
-      <button className="p-2 hover:bg-gray-300 w-full" onClick={() => {
+    <div key={id} className={`${showOptions ? '' : "invisible"} absolute bg-gray-200 rounded flex flex-col items-end z-10 top-5 right-0`}>
+      <button className="px-4 py-2 text-sm hover:bg-gray-300 hover:rounded-t w-full" onClick={() => {
         deleteBook.mutate({ bookId: id })
       }}>Delete</button>
-      <button className="p-2 hover:bg-gray-300 w-full">Edit</button>
+      <button className="px-4 py-2 text-sm hover:bg-gray-300 hover:rounded-b w-full">Edit</button>
     </div>
   );
 };
@@ -27,8 +27,8 @@ function BookCard({ book }: { book: RouterOutputs['book']['getAll'][number] }) {
     <div key={book.id} className="bg-gray-100 border-900-gray cursor-pointer rounded border-2 p-5">
       <div className="flex justify-between align-top items-start">
         <h2 className="text-2xl font-semibold">{book.name}</h2>
-        <div className="inline-block relative">
-          <button onClick={() => setShowOptions(p => !p)} className="text-2xl tracking-wider">...</button>
+        <div className="relative flex items-center">
+          <button onBlur={()=>setShowOptions(false)} onClick={() => setShowOptions(p => !p)} className="text-xs flex justify-end tracking-widest rounded-full px-2 hover:bg-gray-200">●●●</button>
           <OptionsComponent id={book.id} showOptions={showOptions} />
         </div>
       </div>
