@@ -17,5 +17,18 @@ export const toDoRouter = createTRPCRouter({
         })
 
         return toDoTask
+    }),
+
+    getAll: protectedProcedure.input(z.object({
+        id: z.string()
+    }))
+    .query(({ctx,input})=>{
+        const toDos = ctx.prisma.toDo.findMany({
+            where:{
+                id:input.id
+            }
+        })
+
+        return toDos
     })
 })
