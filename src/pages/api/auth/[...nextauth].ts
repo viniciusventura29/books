@@ -3,6 +3,23 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
+    callbacks: {
+    session: ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.uid;
+      }
+      return session;
+    },
+    jwt: ({ user, token }) => {
+      if (user) {
+        token.uid = user.id;
+      }
+      return token;
+    },
+  },
+  session: {
+    strategy: 'jwt',
+  },
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
