@@ -36,7 +36,7 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
   };
 
   return (
-    <div onBlur={()=>setIsOpen(false)} className={`${isOpen ? 'visible' : 'invisible'} mt-2 items-stretch rounded bg-gray-100 py-7 px-10 shadow px w-5/6`}>
+    <div className={`${isOpen ? 'visible' : 'invisible'} mt-2 items-stretch rounded bg-gray-100 py-7 px-10 shadow px w-5/6`}>
       <form
         onSubmit={createBook}
         className="space-x-3"
