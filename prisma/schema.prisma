@@ -45,11 +45,11 @@ model Texts {
 }
 
 model ToDo {
-    id    String  @id @default(cuid())
-    bookId    String
-    check Boolean
-    title String
-    book  Book    @relation(fields: [bookId], references: [id], onDelete: Cascade)
+    id     String  @id @default(cuid())
+    bookId String
+    check  Boolean
+    title  String
+    book   Book    @relation(fields: [bookId], references: [id], onDelete: Cascade)
 }
 
 model User {
