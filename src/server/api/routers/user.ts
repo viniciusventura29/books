@@ -14,6 +14,7 @@ export const userRouter = createTRPCRouter({
                 name:input.name,
                 email:input.email,
                 password: input.password,
+                image: "/profileDefault.svg"
             }
         })
 
