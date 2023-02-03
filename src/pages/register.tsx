@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { useState } from "react";
 import { api } from "../utils/api"
+import { useRouter } from "next/router";
 
 export default function Register (){
+    const router = useRouter()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const {mutate} = api.user.createUser.useMutation();
+    const {mutate} = api.user.createUser.useMutation({onSuccess:()=>{
+        void router.push('/login')
+    }});
 
     const register =()=>[
         mutate({
