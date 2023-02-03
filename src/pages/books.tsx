@@ -14,7 +14,8 @@ const OptionsComponent = ({ id, showOptions }: { id: string, showOptions: boolea
 
   return (
     <div key={id} className={`${showOptions ? '' : "invisible"} absolute bg-gray-200 rounded flex flex-col items-end z-10 top-5 right-0`}>
-      <button className="px-4 py-2 text-sm hover:bg-gray-300 hover:rounded-t w-full" onClick={() => {
+      <button className="px-4 py-2 text-sm hover:bg-gray-300 hover:rounded-t w-full" onClick={(ev) => {
+        ev.preventDefault();
         deleteBook.mutate({ bookId: id })
       }}>Delete</button>
       <button className="px-4 py-2 text-sm hover:bg-gray-300 hover:rounded-b w-full">Edit</button>
@@ -30,7 +31,10 @@ function BookCard({ book }: { book: RouterOutputs['book']['getAll'][number] }) {
       <div className="flex justify-between align-top items-start">
         <h2 className="text-2xl font-semibold">{book.name}</h2>
         <div className="relative flex items-center">
-          <button onBlur={()=>setShowOptions(false)} onClick={() => setShowOptions(p => !p)} className="text-xs flex justify-end tracking-widest rounded-full px-2 hover:bg-gray-200">●●●</button>
+          <button onBlur={()=>setShowOptions(false)} onClick={(ev) => {
+            ev.preventDefault();
+            setShowOptions(p => !p)
+          }} className="text-xs flex justify-end tracking-widest rounded-full px-2 hover:bg-gray-200">●●●</button>
           <OptionsComponent id={book.id} showOptions={showOptions} />
         </div>
       </div>

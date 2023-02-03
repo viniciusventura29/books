@@ -18,7 +18,7 @@ const ToDoTask = ({id}:any) => {
     console.log(toDoList.data)
     return (
         <div className="flex gap-5 mt-10">
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" name="taskCheckbox" id="taskCheckbox" />
             <input className="bg-gray-100 py-2 pr-20 focus:outline-none" type="text" placeholder="Escreva sua tarefa aqui..." />
         </div>
     )
