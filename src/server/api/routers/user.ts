@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter,publicProcedure } from "../trpc";
+import { createTRPCRouter,protectedProcedure,publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
     createUser: publicProcedure
@@ -13,10 +13,19 @@ export const userRouter = createTRPCRouter({
             data:{
                 name:input.name,
                 email:input.email,
-                password: input.password
+                password: input.password,
             }
         })
 
         return users;
+    }),
+
+    getUserInfo: protectedProcedure
+    .query(({ctx})=>{
+        return ctx.prisma.user.findUnique({
+            where:{
+                id: ctx.session.user.id
+            }
+        })
     })
 })
