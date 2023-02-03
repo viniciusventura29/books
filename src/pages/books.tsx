@@ -2,12 +2,13 @@ import { Key, useState } from "react";
 import { RouterOutputs, api } from "../utils/api";
 import CreateCollection from "./components/CreateCollection";
 import Link from "next/link";
+import { ProfileButton } from "./components/ProfileButton";
 
 const OptionsComponent = ({ id, showOptions }: { id: string, showOptions: boolean }) => {
   const util = api.useContext();
   const deleteBook = api.book.deleteBook.useMutation({
     onSuccess: () => {
-      util.book.getAll.invalidate()
+      void util.book.getAll.invalidate()
     }
   });
 
@@ -47,6 +48,7 @@ export default function Books() {
 
   return (
     <div className="bg-gray-100 py-10 transition duration-700 ease-in-out dark:bg-slate-900">
+      <ProfileButton />
       <div className="mx-auto min-h-screen w-auto min-w-[75%] max-w-min">
         <h2 className="text-3xl font-semibold">Colections</h2>
         <button
@@ -60,7 +62,7 @@ export default function Books() {
         </div>
 
         <div className="grid grid-cols-4 grid-flow-row gap-4 mt-20">
-          {books.data?.map((book) => <Link href={`/books/${book.id}`}><BookCard key={book.id} book={book} /></Link>)}
+          {books.data?.map((book) => <Link key={book.id} href={`/books/${book.id}`}><BookCard book={book} /></Link>)}
         </div>
       </div>
     </div>
