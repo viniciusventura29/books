@@ -15,15 +15,11 @@ export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectio
   const [category, setCategory] = useState("");
   const { mutate } = api.book.createBook.useMutation({
     onSuccess() {
-      utils.book.getAll.invalidate();
+      void utils.book.getAll.invalidate();
     }
   });
 
-  const { data: sessionData } = useSession();
-
   const createBook = (e: FormEvent) => {
-    console.log(sessionData);
-    console.log(sessionData?.user?.id);
     e.preventDefault();
     mutate({
       name,
