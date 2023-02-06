@@ -3,23 +3,24 @@ import { useState } from "react"
 import { api } from "../../utils/api"
 
 interface propsId {
-    id: string
+    id: { id: string; }
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const id = ctx.query
 
-    return { props: { id: id } }
+        return { props: {id} }
 }
 
 const ToDoTask = (props:propsId) => {
-    console.log(props.id)
     const toDoList = api.toDo.getAll.useQuery(props.id)
     console.log(toDoList.data)
     return (
         <div className="flex gap-5">
-            <input type="checkbox" name="taskCheckbox" id="taskCheckbox" />
-            <input className="bg-gray-100 py-2 pr-20 focus:outline-none w-[30rem] tracking-wider" type="text" placeholder="Escreva sua tarefa aqui..." />
+            {toDoList.data?.map((task)=>(
+                <div className="bg-red-500 "><input type="checkbox" name="" id="" key={task} />{task.title}</div>
+            ))}
+            
         </div>
     )
 }
