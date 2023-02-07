@@ -4,9 +4,7 @@ import { useState } from "react";
 import { api } from "../../utils/api";
 
 interface propsToDoTask {
-  id: {id: {id:string}};
-	setCheck:Dispatch<SetStateAction<boolean>>;
-	check: boolean
+  id: string;
 }
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
@@ -15,14 +13,27 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
-const ToDoTask = ({id, setCheck, check}:propsToDoTask) => {
-  const toDoList = api.toDo.getAll.useQuery(id.id);
+const ToDoTask = ({id}:propsToDoTask) => {
+  const util = api.useContext();
+  const toDoList = api.toDo.getAll.useQuery({ id });
+  const {mutate} = api.toDo.updateCheck.useMutation({
+    onSuccess: () => {
+      util.toDo.getAll.invalidate()
+    }
+  });
+
+  function checkboxUpdate(singleTaskId:string, check: boolean){
+    mutate({
+      id: singleTaskId,
+      check
+    })
+  }
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-4">
       {toDoList.data?.map((task) => (
-        <div className="flex gap-2" key={task.id}>
-          <input type="checkbox" name="" id="" onInput={()=>setCheck(!check)} />
-          {task.title}
+        <div className={`flex gap-2 ${task.check? "text-gray-400 line-through" : "text-black"}`} key={task.id}>
+          <input type="checkbox" id={task.id} onChange={()=>checkboxUpdate(task.id, !task.check)} defaultChecked={task.check} />
+          <label className="select-none" htmlFor={task.id}>{task.title}</label>
         </div>
       ))}
     </div>
@@ -30,21 +41,20 @@ const ToDoTask = ({id, setCheck, check}:propsToDoTask) => {
 };
 
 export default function TasksBooks(props: { id: {id: string} }) {
+  const idBook = props.id.id;
   const util = api.useContext();
   const { mutate } = api.toDo.createToDo.useMutation({
     onSuccess: () => util.toDo.getAll.invalidate(),
   });
 
-  const idBook = props.id.id;
   const [title, setTilte] = useState("");
-  const [check, setCheck] = useState(false);
 
   const addTaskLine = (e: FormEvent) => {
     e.preventDefault();
     mutate({
       bookId: idBook,
       title: title,
-      check: check,
+      check: false,
     });
 		setTilte('')
   };
@@ -53,12 +63,12 @@ export default function TasksBooks(props: { id: {id: string} }) {
     <div className="bg-gray-100 py-10 transition duration-700 ease-in-out dark:bg-slate-900">
       <div className="mx-auto min-h-screen w-auto min-w-[75%] max-w-min">
         <h2 className="mb-10 text-3xl font-semibold">To Do</h2>
-        <ToDoTask check={check} setCheck={setCheck} id={props} />
+        <ToDoTask id={idBook} />
         <form onSubmit={addTaskLine}>
           <input
             type="text"
             placeholder="Write your task here..."
-            className=" mt-5 w-1/3 rounded px-4 py-2 text-left"
+            className=" mt-5 w-1/3 rounded px-1 py-2 text-left bg-gray-100"
             onChange={(e) => setTilte(e.target.value)}
 						value={title}
           />
