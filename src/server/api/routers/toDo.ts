@@ -3,44 +3,68 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { check } from "prettier";
 
 export const toDoRouter = createTRPCRouter({
-    createToDo: protectedProcedure.input(z.object({
+  createToDo: protectedProcedure
+    .input(
+      z.object({
         title: z.string(),
         check: z.boolean(),
-        bookId: z.string()
-    })).mutation(async ({ ctx, input }) => {
-        const toDoTask = ctx.prisma.toDo.create({
-            data: {
-                title: input.title,
-                check: input.check,
-                bookId: input.bookId
-            }
-        })
-        return toDoTask
+        bookId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const toDoTask = ctx.prisma.toDo.create({
+        data: {
+          title: input.title,
+          check: input.check,
+          bookId: input.bookId,
+        },
+      });
+      return toDoTask;
     }),
 
-    updateCheck: protectedProcedure.input(z.object({
+  updateCheck: protectedProcedure
+    .input(
+      z.object({
         check: z.boolean(),
         id: z.string(),
-    })).mutation(async({ctx, input})=>{
-        const toDoTask = ctx.prisma.toDo.update({
-            data:{check:input.check},
-            where:{
-                id:input.id
-            }
-        })
-        return toDoTask
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const toDoTask = ctx.prisma.toDo.update({
+        data: { check: input.check },
+        where: {
+          id: input.id,
+        },
+      });
+      return toDoTask;
     }),
 
+  deleteTask: protectedProcedure
+    .input(
+      z.object({
+        taskId: z.string(),
+      })
+    )
+    .mutation(async({ ctx, input }) => {
+       await prisma?.toDo.delete({
+        where: {
+          id: input.taskId,
+        },
+      });
+    }),
 
-    getAll: protectedProcedure.input(z.object({
+  getAll: protectedProcedure
+    .input(
+      z.object({
         id: z.string(),
-    }))
-    .query(({ctx,input})=>{
-        const toDos = ctx.prisma.toDo.findMany({
-            where:{
-                bookId:input.id
-            }
-        })
-        return toDos
-    })
-})
+      })
+    )
+    .query(({ ctx, input }) => {
+      const toDos = ctx.prisma.toDo.findMany({
+        where: {
+          bookId: input.id,
+        },
+      });
+      return toDos;
+    }),
+});
