@@ -16,24 +16,39 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 const ToDoTask = ({id}:propsToDoTask) => {
   const util = api.useContext();
   const toDoList = api.toDo.getAll.useQuery({ id });
-  const {mutate} = api.toDo.updateCheck.useMutation({
+  const updateCheck = api.toDo.updateCheck.useMutation({
     onSuccess: () => {
       util.toDo.getAll.invalidate()
     }
   });
 
+  const deleteTaskMutation = api.toDo.deleteTask.useMutation({
+    onSuccess:(()=>{
+      util.toDo.getAll.invalidate()
+    })
+  })
+
+  function deleteTask(singleTaskId:string){
+    deleteTaskMutation.mutate({
+      taskId: singleTaskId
+    })
+  }
+
   function checkboxUpdate(singleTaskId:string, check: boolean){
-    mutate({
+
+    updateCheck.mutate({
       id: singleTaskId,
       check
     })
   }
+
   return (
     <div className="flex flex-col gap-4">
       {toDoList.data?.map((task) => (
-        <div className={`flex gap-2 ${task.check? "text-gray-400 line-through" : "text-black"}`} key={task.id}>
+        <div className={`w-52 flex text-justify gap-2 ${task.check? "text-gray-400 line-through" : "text-black"}`} key={task.id}>
           <input type="checkbox" id={task.id} onChange={()=>checkboxUpdate(task.id, !task.check)} defaultChecked={task.check} />
-          <label className="select-none" htmlFor={task.id}>{task.title}</label>
+          <label className="w-60 select-none" htmlFor={task.id}>{task.title}</label>
+          <button onClick={()=>deleteTask(task.id)} className="flex ml-5 bg-red-500 px-2 py-1 rounded text-white text-sm hover:bg-red-600 cursor-pointer h-7">X</button>
         </div>
       ))}
     </div>
@@ -64,7 +79,7 @@ export default function TasksBooks(props: { id: {id: string} }) {
       <div className="mx-auto min-h-screen w-auto min-w-[75%] max-w-min">
         <h2 className="mb-10 text-3xl font-semibold">To Do</h2>
         <ToDoTask id={idBook} />
-        <form onSubmit={addTaskLine}>
+        <form className="" onSubmit={addTaskLine}>
           <input
             type="text"
             placeholder="Write your task here..."
