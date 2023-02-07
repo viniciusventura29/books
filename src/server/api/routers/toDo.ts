@@ -15,9 +15,22 @@ export const toDoRouter = createTRPCRouter({
                 bookId: input.bookId
             }
         })
-
         return toDoTask
     }),
+
+    updateCheck: protectedProcedure.input(z.object({
+        check: z.boolean(),
+        id: z.string(),
+    })).mutation(async({ctx, input})=>{
+        const toDoTask = ctx.prisma.toDo.update({
+            data:{check:input.check},
+            where:{
+                id:input.id
+            }
+        })
+        return toDoTask
+    }),
+
 
     getAll: protectedProcedure.input(z.object({
         id: z.string(),
@@ -28,7 +41,6 @@ export const toDoRouter = createTRPCRouter({
                 bookId:input.id
             }
         })
-
         return toDos
     })
 })
