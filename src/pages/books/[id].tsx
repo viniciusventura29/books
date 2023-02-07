@@ -15,7 +15,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
-const ToDoTask = ({id,setCheck,check}:propsToDoTask) => {
+const ToDoTask = ({id, setCheck, check}:propsToDoTask) => {
   const toDoList = api.toDo.getAll.useQuery(id.id);
   return (
     <div className="flex flex-col gap-5">
