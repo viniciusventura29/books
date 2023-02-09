@@ -1,9 +1,9 @@
 import type { GetServerSidePropsContext } from "next";
-import type { Dispatch, FormEvent, SetStateAction } from "react";
+import { Dispatch, FormEvent, SetStateAction, useEffect } from "react";
 import { useState } from "react";
 import { api } from "../../utils/api";
 
-interface propsToDoTask {
+interface propsBookId {
   id: string;
 }
 
@@ -13,7 +13,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
-const ToDoTask = ({ id }: propsToDoTask) => {
+const ToDoTask = ({ id }: propsBookId) => {
   const util = api.useContext();
   const toDoList = api.toDo.getAll.useQuery({ id });
   const updateCheck = api.toDo.updateCheck.useMutation({
@@ -78,7 +78,27 @@ export default function TasksBooks(props: { id: { id: string } }) {
     onSuccess: () => util.toDo.getAll.invalidate(),
   });
 
+  const [body, setBody] = useState<string | undefined>();
   const [title, setTilte] = useState("");
+
+  api.notes.getNote.useQuery({
+    bookId: idBook
+  }, {
+    onSuccess: (res) => {
+      setBody(res?.body)
+    }
+  })
+  const updateNoteMutation = api.notes.updateNote.useMutation({
+    onSuccess: () => util.notes.getNote.invalidate()
+  })
+
+  const updateNote=(e:FormEvent)=>{
+    e.preventDefault()
+    updateNoteMutation.mutate({
+      body: body,
+      bookId: idBook
+    })
+  }
 
   const addTaskLine = (e: FormEvent) => {
     e.preventDefault();
@@ -112,9 +132,10 @@ export default function TasksBooks(props: { id: { id: string } }) {
 
         <div id="Notes">
           <h2 className="mb-10 text-3xl font-semibold">Notes</h2>
-          <div>
-            <textarea className="border-2 border-gray-700 rounded resize-none w-[40rem] h-[40rem]" name="" id=""></textarea>
-          </div>
+          <form className="flex flex-col gap-2">
+            <textarea className="border-2 border-gray-700 rounded resize-none w-[40rem] h-[40rem] p-2" placeholder="Write your notes here..." value={body} onChange={(e)=>setBody(e.target.value)} onBlur={(e)=>updateNote(e)}></textarea>
+            <button onClick={(e)=>updateNote(e)} className="bg-green-600 hover:bg-green-700 rounded py-2 px-10 text-white w-40">Save</button>
+          </form>
         </div>
       </div>
     </div>
