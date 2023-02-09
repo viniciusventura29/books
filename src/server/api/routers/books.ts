@@ -15,6 +15,11 @@ export const bookRouter = createTRPCRouter({
                 description: input.description,
                 userId: ctx.session.user.id,
                 category: input.category,
+                texts: {
+                    create: {
+                        body: ''
+                    }
+                }
             },
         })
         return books
