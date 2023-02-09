@@ -18,7 +18,7 @@ export const notesRouter = createTRPCRouter({
             code: "INTERNAL_SERVER_ERROR"
         })
 
-        const notes = ctx.prisma.notes.update({
+        const note = await ctx.prisma.notes.update({
             data: {
                 body: input.body
             },
@@ -26,7 +26,7 @@ export const notesRouter = createTRPCRouter({
                 id: noteToUpdate.id
             }
         })
-        return notes
+        return { note }
     }),
 
     getNote: protectedProcedure.input(z.object({
