@@ -28,17 +28,15 @@ model Book {
     category    String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-    texts       Texts[]
+    texts       Notes[]
     toDos       ToDo[]
     user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Texts {
+model Notes {
     id        String   @id @default(cuid())
     bookId    String
-    title     String
     body      String
-    category  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
