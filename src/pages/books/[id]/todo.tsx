@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { FormEvent, useState } from "react";
 import { api } from "../../../utils/api";
+import { Breadcrumb } from "../../components/Breadcrumb";
 
 interface propsBookId {
   id: string;
@@ -93,8 +94,9 @@ export default function todo(props: { id: { id: string } }) {
   };
 
   return (
-    <div className="bg-gray-100 py-10 transition duration-700 ease-in-out dark:bg-slate-900">
-      <div className="mx-auto flex justify-center min-h-screen w-auto min-w-[50%] max-w-min">
+    <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
+      <Breadcrumb idBook={idBook} toolName="Notes" />
+      <div className="mx-auto flex py-10 justify-center min-h-screen w-auto min-w-[50%] max-w-min">
         <div id="ToDo" className="w-[40rem]">
           <h2 className="mb-10 text-3xl font-semibold">To Do</h2>
           <ToDoTask id={idBook} />
