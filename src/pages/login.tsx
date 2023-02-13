@@ -10,9 +10,9 @@ export default function Login() {
   const router = useRouter()
   
 
-  const login = async (e: FormEvent) => {
+  const login = (e: FormEvent) => {
     e.preventDefault();
-    void await signIn("credentials", {callbackUrl:"/books", email, password });
+    void signIn("credentials", {callbackUrl:"/books", email, password });
   };
 
   return (
