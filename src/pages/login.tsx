@@ -7,6 +7,13 @@ import {useRouter}  from "next/router";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter()
+  
+
+  const login = async (e: FormEvent) => {
+    e.preventDefault();
+    void await signIn("credentials", {callbackUrl:"/books", email, password });
+  };
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -16,7 +23,7 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={(e) => {e.preventDefault(); signIn("credentials", {callbackUrl:"/books", email, password });}}>
+            <form className="space-y-4 md:space-y-6" onSubmit={(e) => login(e)}>
               <div>
                 <label
                   htmlFor="email"
