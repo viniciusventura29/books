@@ -9,7 +9,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
-export default function notes(props: { id: { id: string } }) {
+export default function Notes(props: { id: { id: string } }) {
   const util = api.useContext();
   const idBook = props.id.id;
 
