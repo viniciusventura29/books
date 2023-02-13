@@ -14,7 +14,7 @@ export default function TasksBooks(props: { id: { id: string } }) {
   const idBook = props.id.id;
 
   return (
-    <div className="flex flex-col pl-96 gap-5 pt-5">
+    <div className="flex flex-col gap-5">
       <Breadcrumb idBook={idBook} toolName=""/>      
 
       <Sidebar idBook={idBook} />
