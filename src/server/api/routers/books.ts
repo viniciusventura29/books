@@ -42,5 +42,16 @@ export const bookRouter = createTRPCRouter({
     .query(({ctx})=>{
         return ctx.prisma.book.findMany();
     }),
+
+    getOne: protectedProcedure.input(z.object({
+        bookId: z.string(),
+    })).query(async({ctx,input})=>{
+        const book = await prisma?.book.findUnique({
+            where:{
+                id:input.bookId
+            }
+        })
+        return book
+    })
     
 })
