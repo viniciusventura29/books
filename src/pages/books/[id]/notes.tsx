@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../../../utils/api";
+import { Breadcrumb } from "../../components/Breadcrumb";
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;
@@ -50,8 +51,9 @@ export default function notes(props: { id: { id: string } }) {
   }
 
   return (
-    <div className="bg-gray-100 py-10 transition duration-700 ease-in-out dark:bg-slate-900">
-      <div className="mx-auto flex min-h-screen w-auto min-w-[75%] max-w-min justify-center">
+    <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
+      <Breadcrumb idBook={idBook} toolName="Notes" />
+      <div className="mx-auto flex py-10 min-h-screen w-auto min-w-[75%] max-w-min justify-center">
         <div id="Notes">
           <h2 className="mb-10 text-3xl font-semibold">Notes</h2>
           <form className="flex flex-col gap-2">
