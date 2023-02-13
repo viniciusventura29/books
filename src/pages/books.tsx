@@ -29,7 +29,7 @@ export default function Books() {
         </div>
 
         <div className="mt-20 grid grid-flow-row grid-cols-4 gap-4">
-          {books.data?.map((book) => (
+          {books.data?.map((book:any) => (
             <Link key={book.id} href={`/books/${book.id}`}>
               <BookCard book={book} />
             </Link>
