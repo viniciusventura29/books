@@ -11,7 +11,7 @@ interface IOptionsUser{
 
 function OptionsUser({optionsUserOpen, user}:IOptionsUser){
     const signOutConst = ()=>{
-        signOut({callbackUrl:'/'})
+        void signOut({callbackUrl:'/'})
     }
     return(
         <div className={`${optionsUserOpen? 'visible' : 'invisible'} shadow-lg bg-white rounded-tl rounded-b absolute w-52 divide-y divide-slate-300 gap-2 right-0 mt-1`}>
