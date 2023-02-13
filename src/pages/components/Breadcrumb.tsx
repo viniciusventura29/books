@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { api } from "../../utils/api"
 
 interface IBreadcrumb {
@@ -12,7 +13,7 @@ export const Breadcrumb= ({idBook,toolName}:IBreadcrumb)=>{
         <nav className="flex ml-96 pt-5" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
-            <a
+            <Link
               href="/books"
               className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
             >
@@ -26,7 +27,7 @@ export const Breadcrumb= ({idBook,toolName}:IBreadcrumb)=>{
                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
               </svg>
               Collections
-            </a>
+            </Link>
           </li>
           <li>
             <div className="flex items-center">
@@ -43,12 +44,12 @@ export const Breadcrumb= ({idBook,toolName}:IBreadcrumb)=>{
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <a
-                href={"/books/"+book.data?.id}
+              <Link
+                href={"/books/"+ (book.data ? book.data.id : '123')}
                 className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ml-2"
               >
                 {book.data?.name}
-              </a>
+              </Link>
             </div>
           </li>
           <li aria-current="page">

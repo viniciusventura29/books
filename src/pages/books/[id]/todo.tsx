@@ -19,14 +19,14 @@ const ToDoTask = ({ id }: propsBookId) => {
   const util = api.useContext();
   const toDoList = api.toDo.getAll.useQuery({ id });
   const updateCheck = api.toDo.updateCheck.useMutation({
-    onSuccess: () => {
-      util.toDo.getAll.invalidate();
+    onSuccess: async() => {
+      await util.toDo.getAll.invalidate();
     },
   });
 
   const deleteTaskMutation = api.toDo.deleteTask.useMutation({
-    onSuccess: () => {
-      util.toDo.getAll.invalidate();
+    onSuccess: async() => {
+      await util.toDo.getAll.invalidate();
     },
   });
 
@@ -73,7 +73,7 @@ const ToDoTask = ({ id }: propsBookId) => {
   );
 };
 
-export default function todo(props: { id: { id: string } }) {
+export default function Todo(props: { id: { id: string } }) {
   const util = api.useContext();
   const idBook = props.id.id;
 
