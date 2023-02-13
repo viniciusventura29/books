@@ -10,7 +10,7 @@ export default function Login() {
   const router = useRouter()
   
 
-  const login = async(e: FormEvent) => {
+  const login = async (e: FormEvent) => {
     e.preventDefault();
     await signIn("credentials", {callbackUrl:"/books", email, password });
   };
@@ -23,7 +23,7 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={login}>
+            <form className="space-y-4 md:space-y-6" onSubmit={(e) => login(e).then(() => console.log('oi'))}>
               <div>
                 <label
                   htmlFor="email"
