@@ -1,15 +1,16 @@
 import { useState } from "react"
 import { api } from "../../utils/api"
 import { signOut } from "next-auth/react"
+import { IconLogout } from "@tabler/icons-react"
 
 function optionsUser(optionsUserOpen:any, user:any){
     const signOutConst = ()=>{
         signOut({callbackUrl:'/'})
     }
     return(
-        <div className={`${optionsUserOpen? 'visible' : 'invisible'} bg-gray-200 rounded-b rounded-tl absolute w-52 divide-y divide-slate-300 gap-2 right-0 mt-1`}>
-            <div className="w-full text-right p-2 cursor-default">{user.data?.name}</div>
-            <button onClick={()=>signOutConst()} className="w-full hover:bg-slate-200 text-right p-2">SignOut</button>
+        <div className={`${optionsUserOpen? 'visible' : 'invisible'} shadow-lg bg-white rounded-tl rounded-b absolute w-52 divide-y divide-slate-300 gap-2 right-0 mt-1`}>
+            <div className="w-full p-2 cursor-default">{user.data?.name}</div>
+            <button onClick={()=>signOutConst()} className="w-full hover:bg-red-200 text-right p-2 rounded-b bg-red-50 flex items-center gap-2 text-red-700 "><IconLogout /> SignOut</button>
         </div>
     )
 }
