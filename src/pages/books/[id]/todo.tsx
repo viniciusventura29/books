@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { FormEvent, useState } from "react";
 import { api } from "../../../utils/api";
-import { Breadcrumb } from "../../components/Breadcrumb";
+import { Breadcrumb } from "../../../components/Breadcrumb";
 
 interface propsBookId {
   id: string;

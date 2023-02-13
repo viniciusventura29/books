@@ -1,10 +1,9 @@
-import { Key, useState } from "react";
-import { RouterOutputs, api } from "../utils/api";
-import CreateCollection from "./components/CreateCollection";
+import { useState } from "react";
+import { api } from "../utils/api";
+import CreateCollection from "../components/CreateCollection";
 import Link from "next/link";
-import { ProfileButton } from "./components/ProfileButton";
-import { Sidebar } from "./components/Sidebar";
-import { BookCard } from "./components/BookCard";
+import { ProfileButton } from "../components/ProfileButton";
+import { BookCard } from "../components/BookCard";
 
 export default function Books() {
   const books = api.book.getAll.useQuery();

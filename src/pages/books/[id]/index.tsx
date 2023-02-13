@@ -1,8 +1,8 @@
 import type { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { api } from "../../../utils/api";
-import { Breadcrumb } from "../../components/Breadcrumb";
-import { Sidebar } from "../../components/Sidebar";
+import { Breadcrumb } from "../../../components/Breadcrumb";
+import { Sidebar } from "../../../components/Sidebar";
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;

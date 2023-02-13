@@ -1,6 +1,6 @@
 import { IconListCheck, IconNote } from "@tabler/icons-react"
 import Link from "next/link"
-import { api } from "../../utils/api";
+import { api } from "../utils/api";
 
 export const Sidebar = (idBook:{ idBook: string; }) =>{
    const bookName = api.book.getOne.useQuery({bookId:idBook.idBook})

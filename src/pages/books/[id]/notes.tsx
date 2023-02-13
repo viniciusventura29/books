@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../../../utils/api";
-import { Breadcrumb } from "../../components/Breadcrumb";
+import { Breadcrumb } from "../../../components/Breadcrumb";
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;

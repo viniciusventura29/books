@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { api } from "../../utils/api"
+import { api } from "../utils/api"
 
 interface IBreadcrumb {
     idBook: string;
