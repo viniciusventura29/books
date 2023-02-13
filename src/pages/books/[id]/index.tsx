@@ -1,5 +1,8 @@
 import type { GetServerSidePropsContext } from "next";
 import Link from "next/link";
+import { api } from "../../../utils/api";
+import { Breadcrumb } from "../../components/Breadcrumb";
+import { Sidebar } from "../../components/Sidebar";
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;
@@ -10,8 +13,11 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 export default function TasksBooks(props: { id: { id: string } }) {
   const idBook = props.id.id;
 
-  return <div className="flex flex-col items-center py-40 gap-5">
-    <Link className="py-2 px-6 bg-blue-500 rounded w-28 text-white" href={idBook+'/notes'}>Notes</Link>
-    <Link className="py-2 px-6 bg-blue-500 rounded w-28 text-white" href={idBook+'/todo'}>To Dos</Link>
-  </div>;
+  return (
+    <div className="flex flex-col pl-96 gap-5 pt-5">
+      <Breadcrumb idBook={idBook} toolName=""/>      
+
+      <Sidebar idBook={idBook} />
+    </div>
+  );
 }

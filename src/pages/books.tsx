@@ -12,7 +12,6 @@ export default function Books() {
 
   return (
     <div className="bg-gray-100 py-10 transition duration-700 ease-in-out dark:bg-slate-900">
-      <Sidebar />
       <ProfileButton />
       <div className="mx-auto min-h-screen w-auto min-w-[70%] max-w-min">
         <div className="flex items-center gap-10">
