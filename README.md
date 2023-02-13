@@ -9,7 +9,7 @@ This is a website developed to improve and assist your personal tasks
 - [X] ReactQuery
 
 ### Created by
-[https://github.com/viniciusventura29](viniciusventura29)
+[viniciusventura29](https://github.com/viniciusventura29)
 
-#### MonkeyDevs
+#### Our organization
 [MonkeyDevs](https://github.com/monkey-developers)
