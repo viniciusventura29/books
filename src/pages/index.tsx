@@ -1,5 +1,6 @@
 import { IconPencil } from "@tabler/icons-react";
-import { GetServerSidePropsContext, type NextPage } from "next";
+import type { GetServerSidePropsContext} from "next";
+import { type NextPage } from "next";
 import Head from "next/head";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
@@ -31,7 +32,7 @@ const Home: NextPage = () => {
             <span className="mb-2 text-xl">Welcome to</span>
             <div className="flex items-center">
               <h1 className="text-6xl font-bold">The Books</h1>
-              <h1 className="absolute text-[8rem] font-bold opacity-10">
+              <h1 className="absolute text-[8rem] text-purple-900 font-bold opacity-10">
                 The Books
               </h1>
             </div>
@@ -39,7 +40,7 @@ const Home: NextPage = () => {
               This is a website developed to help you with your self tasks.
             </span>
           </div>
-          <button className="z-30 mt-20 flex items-center gap-2 rounded bg-purple-900 px-4 py-2 text-white">
+          <button className="z-30 mt-20 flex items-center gap-2 rounded bg-purple-600 hover:shadow-lg hover:shadow-purple-500 hover:bg-purple-700 transition-all duration-200 px-4 py-2 text-white">
             Get started
             <IconPencil size={18} />
           </button>
