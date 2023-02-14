@@ -31,7 +31,7 @@ export const bookRouter = createTRPCRouter({
         })
     ).mutation(async({ctx, input})=>{
 
-        await prisma?.book.delete({
+        await ctx.prisma.book.delete({
             where: {
                 id: input.bookId,
             }
@@ -46,7 +46,7 @@ export const bookRouter = createTRPCRouter({
     getOne: protectedProcedure.input(z.object({
         bookId: z.string(),
     })).query(async({ctx,input})=>{
-        const book = await prisma?.book.findUnique({
+        const book = await ctx.prisma.book.findUnique({
             where:{
                 id:input.bookId
             }

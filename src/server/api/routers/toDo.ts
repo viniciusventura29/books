@@ -46,7 +46,7 @@ export const toDoRouter = createTRPCRouter({
       })
     )
     .mutation(async({ ctx, input }) => {
-       await prisma?.toDo.delete({
+       await ctx.prisma.toDo.delete({
         where: {
           id: input.taskId,
         },
