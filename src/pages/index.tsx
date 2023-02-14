@@ -6,17 +6,16 @@ import { getServerAuthSession } from "../server/auth";
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);
 
-  console.log(session)
+  console.log(session);
 
   return {
-      props: {
-          session
-      }
-  }
+    props: {
+      session,
+    },
+  };
 }
 
 const Home: NextPage = () => {
-
   return (
     <>
       <Head>
@@ -26,7 +25,14 @@ const Home: NextPage = () => {
       </Head>
       <Navbar />
       <main className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-        
+        <div className="flex flex-col items-center">
+
+          <span className="text-xl mb-2">Hi, I'm your new friend</span>
+          <h1 className="text-5xl font-semibold">The Books</h1>
+          <span className="text-2xl mt-8">
+            I'm a website developed to help you with your self tasks.
+          </span>
+        </div>
       </main>
     </>
   );
