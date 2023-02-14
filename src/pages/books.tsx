@@ -4,6 +4,27 @@ import CreateCollection from "../components/CreateCollection";
 import Link from "next/link";
 import { ProfileButton } from "../components/ProfileButton";
 import { BookCard } from "../components/BookCard";
+import { getServerAuthSession } from "../server/auth";
+import { GetServerSidePropsContext } from "next";
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const session = await getServerAuthSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
 
 export default function Books() {
   const books = api.book.getAll.useQuery();
@@ -17,8 +38,7 @@ export default function Books() {
           <h2 className="text-3xl font-semibold">Collections</h2>
           <button
             onClick={() => setIsModalOpen(!isModalOpen)}
-            className="mt-2 rounded bg-green-600 px-5 py-2 text-white"
-          >
+            className="mt-2 rounded bg-green-600 px-5 py-2 text-white">
             + New colection
           </button>
         </div>
