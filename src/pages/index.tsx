@@ -1,12 +1,12 @@
+import { IconPencil } from "@tabler/icons-react";
 import { GetServerSidePropsContext, type NextPage } from "next";
 import Head from "next/head";
+import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { getServerAuthSession } from "../server/auth";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);
-
-  console.log(session);
 
   return {
     props: {
@@ -24,15 +24,32 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-        <div className="flex flex-col items-center">
-
-          <span className="text-xl mb-2">Hi, I'm your new friend</span>
-          <h1 className="text-5xl font-semibold">The Books</h1>
-          <span className="text-2xl mt-8">
-            I'm a website developed to help you with your self tasks.
-          </span>
+      <main className="flex min-h-screen flex-col bg-gray-100 bg-gradient-to-br from-gray-100 to-slate-200">
+        <div className="flex h-screen w-full flex-col items-center justify-center">
+          <img className="absolute z-0 h-full opacity-30" src="./bg-2.svg" />
+          <div className="z-30 flex flex-col">
+            <span className="mb-2 text-xl">Welcome to</span>
+            <div className="flex items-center">
+              <h1 className="text-6xl font-bold">The Books</h1>
+              <h1 className="absolute text-[8rem] font-bold opacity-10">
+                The Books
+              </h1>
+            </div>
+            <span className="mt-8 text-3xl">
+              This is a website developed to help you with your self tasks.
+            </span>
+          </div>
+          <button className="z-30 mt-20 flex items-center gap-2 rounded bg-purple-900 px-4 py-2 text-white">
+            Get started
+            <IconPencil size={18} />
+          </button>
         </div>
+        <div className="flex flex-col px-96 gap-28">
+          <div className="bg-gray-300 rounded-lg w-full h-52"></div>
+          <div className="bg-gray-300 rounded-lg w-full h-52"></div>
+          <div className="bg-gray-300 rounded-lg w-full h-52"></div>
+        </div>
+        <Footer />
       </main>
     </>
   );
