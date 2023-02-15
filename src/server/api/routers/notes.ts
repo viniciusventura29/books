@@ -5,6 +5,7 @@ import { z } from 'zod'
 export const notesRouter = createTRPCRouter({
 
     updateNote: protectedProcedure.input(z.object({
+        title: z.string(),
         body: z.string(),
         bookId: z.string()
     })).mutation(async ({ ctx, input }) => {
@@ -20,7 +21,8 @@ export const notesRouter = createTRPCRouter({
 
         const note = await ctx.prisma.notes.update({
             data: {
-                body: input.body
+                body: input.body,
+                title: input.title
             },
             where: {
                 id: noteToUpdate.id
