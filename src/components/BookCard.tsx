@@ -53,7 +53,7 @@ export function BookCard({
   return (
     <div
       key={book.id}
-      className="border-900-gray cursor-pointer rounded bg-gray-50 p-5 shadow"
+      className="border-900-gray cursor-pointer rounded bg-gray-50 p-5 shadow hover:shadow-purple-400 hover:shadow-lg transition-all duration-300"
     >
       <div className="flex items-start justify-between align-top">
         <h2 className="text-2xl font-semibold">{book.name}</h2>
