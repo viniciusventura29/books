@@ -6,6 +6,7 @@ import { ProfileButton } from "../components/ProfileButton";
 import { BookCard } from "../components/BookCard";
 import { getServerAuthSession } from "../server/auth";
 import { GetServerSidePropsContext } from "next";
+import { IconHome2 } from "@tabler/icons-react";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);
@@ -54,6 +55,7 @@ export default function Books() {
           ))}
         </div>
       </div>
+      <Link href='/' className="bg-white hover:shadow-purple-500 shadow-lg shadow-gray-300 w-16 h-16 fixed rounded-full left-16 bottom-16 flex justify-center items-center transition-all duration-300"><IconHome2 size={32} /></Link>
     </div>
   );
 }

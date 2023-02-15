@@ -15,7 +15,7 @@ export const Breadcrumb= ({idBook,toolName}:IBreadcrumb)=>{
           <li className="inline-flex items-center">
             <Link
               href="/books"
-              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-purple-600 dark:text-gray-400 dark:hover:text-white"
             >
               <svg
                 aria-hidden="true"
@@ -46,7 +46,7 @@ export const Breadcrumb= ({idBook,toolName}:IBreadcrumb)=>{
               </svg>
               <Link
                 href={"/books/"+ (book.data ? book.data.id : '123')}
-                className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white md:ml-2"
+                className="ml-1 text-sm font-medium text-gray-700 hover:text-purple-600 dark:text-gray-400 dark:hover:text-white md:ml-2"
               >
                 {book.data?.name}
               </Link>
