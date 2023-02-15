@@ -4,7 +4,7 @@ import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/Breadcrumb";
 
 interface propsBookId {
-  id: string;
+  BookId: string;
 }
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
@@ -15,9 +15,9 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
-const ToDoTask = ({ id }: propsBookId) => {
+const ToDoTask = ({ BookId }: propsBookId) => {
   const util = api.useContext();
-  const toDoList = api.toDo.getAll.useQuery({ id });
+  const toDoList = api.toDo.getAll.useQuery({ BookId });
   const updateCheck = api.toDo.updateCheck.useMutation({
     onSuccess: async() => {
       await util.toDo.getAll.invalidate();
@@ -99,7 +99,7 @@ export default function Todo(props: { id: { id: string } }) {
       <div className="mx-auto flex py-10 justify-center min-h-screen w-auto min-w-[50%] max-w-min">
         <div id="ToDo" className="w-[40rem]">
           <h2 className="mb-10 text-3xl font-semibold">To Do</h2>
-          <ToDoTask id={idBook} />
+          <ToDoTask BookId={idBook} />
           <form onSubmit={addTaskLine}>
             <input
               type="text"

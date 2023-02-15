@@ -56,13 +56,13 @@ export const toDoRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
+        BookId: z.string(),
       })
     )
     .query(({ ctx, input }) => {
       const toDos = ctx.prisma.toDo.findMany({
         where: {
-          bookId: input.id,
+          bookId: input.BookId,
         },
       });
       return toDos;
