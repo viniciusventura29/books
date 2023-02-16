@@ -5,6 +5,7 @@ import Head from "next/head";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { getServerAuthSession } from "../server/auth";
+import Link from "next/link";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);
@@ -40,10 +41,10 @@ const Home: NextPage = () => {
               This is a website developed to help you with your self tasks.
             </span>
           </div>
-          <button className="z-30 mt-20 flex items-center gap-2 rounded bg-purple-600 hover:shadow-lg hover:shadow-purple-500 hover:bg-purple-700 transition-all duration-200 px-4 py-2 text-white">
+          <Link href='/books' className="z-30 mt-20 flex items-center gap-2 rounded bg-purple-600 hover:shadow-lg hover:shadow-purple-500 hover:bg-purple-700 transition-all duration-200 px-4 py-2 text-white">
             Get started
             <IconPencil size={18} />
-          </button>
+          </Link>
         </div>
         <div className="flex flex-col px-96 gap-28">
           <div className="bg-gray-300 rounded-lg w-full h-52"></div>

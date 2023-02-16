@@ -55,7 +55,7 @@ export default function Books() {
           ))}
         </div>
       </div>
-      <Link href='/' className="bg-white hover:shadow-purple-500 shadow-lg shadow-gray-300 w-16 h-16 fixed rounded-full left-16 bottom-16 flex justify-center items-center transition-all duration-300"><IconHome2 size={32} /></Link>
+      <Link href='/' className="bg-white hover:shadow-purple-500 hover:shadow-lg shadow-sm shadow-gray-300 w-16 h-16 fixed rounded-full left-16 bottom-16 flex justify-center items-center transition-all duration-300"><IconHome2 size={32} /></Link>
     </div>
   );
 }
