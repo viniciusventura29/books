@@ -31,12 +31,23 @@ export const notesRouter = createTRPCRouter({
         return { note }
     }),
 
-    getNote: protectedProcedure.input(z.object({
+    getOneNote: protectedProcedure.input(z.object({
         bookId: z.string()
     })).query(({ ctx, input }) => {
         const notes = ctx.prisma.notes.findFirst({where:{
             bookId: input.bookId
         }})
+        return notes
+    }),
+
+    getAllNotes: protectedProcedure.input(z.object({
+        bookId:z.string()
+    })).query(({ctx, input})=>{
+        const notes = ctx.prisma.notes.findMany({
+            where:{
+                bookId: input.bookId
+            }
+        })
         return notes
     })
 })
