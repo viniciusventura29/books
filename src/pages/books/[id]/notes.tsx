@@ -2,6 +2,15 @@ import { GetServerSidePropsContext } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/Breadcrumb";
+import { IconPencil, IconPlus } from "@tabler/icons-react";
+
+interface INote {
+  id: string
+  title: string
+  body: string
+  updatedAt: string
+  color: string
+}
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;
@@ -9,69 +18,94 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
+const SingleNote = (note: INote) => {
+  return (
+    <div className="w-full h-64 flex flex-col justify-between dark:bg-gray-800 bg-white dark:border-gray-700 rounded-lg border border-gray-400 mb-6 py-5 px-4">
+      <div>
+        <h4 className="text-gray-800 dark:text-gray-100 font-bold mb-3">{note.title}</h4>
+        <p className="text-gray-800 dark:text-gray-100 text-sm">{note.body}</p>
+      </div>
+      <div>
+        <div className="flex items-center justify-between text-gray-800 dark:text-gray-100">
+          <p className="text-sm">{note.updatedAt}</p>
+          <button className="w-8 h-8 rounded-full bg-gray-800 dark:bg-gray-100 dark:text-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">
+            <IconPencil size={20} />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Notes(props: { id: { id: string } }) {
   const util = api.useContext();
   const idBook = props.id.id;
+  const notesList = api.notes.getAllNotes.useQuery({ bookId: idBook })
+
+  console.log(notesList.data)
 
   const [body, setBody] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
 
-  useEffect(()=>{
+  useEffect(() => {
     document.addEventListener('keydown', detectKeyDown, true)
-  },[])
+  }, [])
 
-  api.notes.getNote.useQuery(
+  api.notes.getOneNote.useQuery(
     {
       bookId: idBook,
     },
     {
       onSuccess: (updatedNote) => {
         if (updatedNote?.body) {
-            setBody(updatedNote.body);
+          setBody(updatedNote.body);
         }
       },
     }
   );
 
   const updateNoteMutation = api.notes.updateNote.useMutation({
-    onSuccess: () => util.notes.getNote.invalidate(),
+    onSuccess: () => util.notes.getOneNote.invalidate(),
   });
 
   const updateNote = useCallback(() => {
     updateNoteMutation.mutate({
+      title: title,
       body: body,
       bookId: idBook,
     });
-  }, [body, idBook]);
+  }, [title, body, idBook]);
 
-  const detectKeyDown = (e: KeyboardEvent)=>{
-    if(e.ctrlKey && e.key === 's' && !e.repeat){
-        e.preventDefault()
-        updateNote()
+  const detectKeyDown = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.key === 's' && !e.repeat) {
+      e.preventDefault()
+      updateNote()
     }
   }
 
   return (
     <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
       <Breadcrumb idBook={idBook} toolName="Notes" />
-      <div className="mx-auto flex py-10 min-h-screen w-auto min-w-[75%] max-w-min justify-center">
-        <div id="Notes">
-          <h2 className="mb-10 text-3xl font-semibold">Notes</h2>
-          <form className="flex flex-col gap-2">
-            <textarea
-              className="h-[40rem] w-[40rem] resize-none rounded border-2 border-gray-700 p-2"
-              placeholder="Write your notes here..."
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              onBlur={updateNote}
-            ></textarea>
-            <button
-              type="button"
-              onClick={updateNote}
-              className="w-40 rounded bg-green-600 py-2 px-10 text-white hover:bg-green-700"
-            >
-              Save
-            </button>
-          </form>
+      <div className="mx-auto flex flex-col py-10 min-h-screen w-auto min-w-[75%] max-w-min">
+        <h2 className="mb-10 text-3xl font-semibold">Notes</h2>
+        <div className="mt-20 grid grid-flow-row grid-cols-4 gap-4">
+          {notesList.data?.map((note) => (
+            <SingleNote color="white" title={note.title} updatedAt={note.updatedAt.getDate().toString()} id={note.id} body={note.body} />
+          ))}
+          <div className="transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 w-full h-64 opacity-70 flex flex-col justify-between dark:bg-gray-800 bg-white dark:border-gray-700 rounded-lg border border-gray-400 mb-6 py-5 px-4">
+      <div>
+        <h4 className="text-gray-800 dark:text-gray-100 font-bold mb-3">New note title</h4>
+        <p className="text-gray-800 dark:text-gray-100 text-sm">New note body</p>
+      </div>
+      <div>
+        <div className="flex items-center justify-between text-gray-800 dark:text-gray-100">
+          <p className="text-sm">New note date</p>
+          <button className="w-8 h-8 rounded-full bg-gray-800 dark:bg-gray-100 dark:text-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">
+            <IconPlus size={20} />
+          </button>
+        </div>
+      </div>
+    </div>
         </div>
       </div>
     </div>
