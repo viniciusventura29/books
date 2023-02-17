@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from "next";
-import { useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/Breadcrumb";
 import { IconPencil, IconPlus } from "@tabler/icons-react";
@@ -10,6 +10,12 @@ interface INote {
   body: string
   updatedAt: string
   color: string
+}
+
+interface IModalSide{
+    openSideModal: boolean
+    setOpenSideModal: Dispatch<SetStateAction<boolean>>
+
 }
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
@@ -37,15 +43,25 @@ const SingleNote = (note: INote) => {
   )
 }
 
+const SideModal = (modalSideProps: IModalSide) => {
+  console.log(modalSideProps.openSideModal)
+  return (
+    <div className={`${modalSideProps.openSideModal ? 'visible opacity-100 ' : 'invisible opacity-0'} p-6 backdrop-brightness-50 bg-white shadow-lg absolute min-h-screen right-0 w-1/4 transition-all duration-300`}>
+      <div className="cursor-pointer bg-red-500 hover:bg-red-600 rounded p-2 flex items-center justify-center w-6 h-6 text-white" onClick={()=>modalSideProps.setOpenSideModal(false)}>X</div>
+    </div>
+  )
+}
+
 export default function Notes(props: { id: { id: string } }) {
   const util = api.useContext();
   const idBook = props.id.id;
   const notesList = api.notes.getAllNotes.useQuery({ bookId: idBook })
 
-  console.log(notesList.data)
-
   const [body, setBody] = useState<string>("");
   const [title, setTitle] = useState<string>("");
+
+  const [openSideModal, setOpenSideModal] = useState(false)
+  console.log(openSideModal)
 
   useEffect(() => {
     document.addEventListener('keydown', detectKeyDown, true)
@@ -84,30 +100,31 @@ export default function Notes(props: { id: { id: string } }) {
   }
 
   return (
-    <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
+    <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900 flex flex-col">
       <Breadcrumb idBook={idBook} toolName="Notes" />
       <div className="mx-auto flex flex-col py-10 min-h-screen w-auto min-w-[75%] max-w-min">
         <h2 className="mb-10 text-3xl font-semibold">Notes</h2>
         <div className="mt-20 grid grid-flow-row grid-cols-4 gap-4">
           {notesList.data?.map((note) => (
-            <SingleNote color="white" title={note.title} updatedAt={note.updatedAt.getDate().toString()} id={note.id} body={note.body} />
+            <SingleNote key={note.id} color="white" title={note.title} updatedAt={note.updatedAt.getDate().toString()} id={note.id} body={note.body} />
           ))}
-          <div className="transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 w-full h-64 opacity-70 flex flex-col justify-between dark:bg-gray-800 bg-white dark:border-gray-700 rounded-lg border border-gray-400 mb-6 py-5 px-4">
-      <div>
-        <h4 className="text-gray-800 dark:text-gray-100 font-bold mb-3">New note title</h4>
-        <p className="text-gray-800 dark:text-gray-100 text-sm">New note body</p>
-      </div>
-      <div>
-        <div className="flex items-center justify-between text-gray-800 dark:text-gray-100">
-          <p className="text-sm">New note date</p>
-          <button className="w-8 h-8 rounded-full bg-gray-800 dark:bg-gray-100 dark:text-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">
-            <IconPlus size={20} />
-          </button>
+          <div onClick={() => setOpenSideModal(true)} className="transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 w-full h-64 opacity-70 flex flex-col justify-between dark:bg-gray-800 bg-white dark:border-gray-700 rounded-lg border border-gray-400 mb-6 py-5 px-4">
+            <div>
+              <h4 className="text-gray-800 dark:text-gray-100 font-bold mb-3">New note title</h4>
+              <p className="text-gray-800 dark:text-gray-100 text-sm">New note body</p>
+            </div>
+            <div>
+              <div className="flex items-center justify-between cursor-pointer text-gray-800 dark:text-gray-100">
+                <p className="text-sm">New note date</p>
+                <button className="w-8 h-8 rounded-full bg-gray-800 dark:bg-gray-100 dark:text-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-black" aria-label="edit note" role="button">
+                  <IconPlus size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-        </div>
-      </div>
+      <SideModal openSideModal={openSideModal} setOpenSideModal={setOpenSideModal} />
     </div>
   );
 }
