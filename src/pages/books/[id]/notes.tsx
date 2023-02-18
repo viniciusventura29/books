@@ -61,6 +61,8 @@ const SideModal = (modalSideProps: IModalSide) => {
 
   const createNote = api.notes.createNote.useMutation({onSuccess: async()=>{
     await util.notes.getAllNotes.invalidate()
+    setBody('')
+    setTitle('')
   }})
 
   const saveNote = ()=>{
@@ -69,8 +71,7 @@ const SideModal = (modalSideProps: IModalSide) => {
       title:title,
       body:body
     })
-    setBody('')
-    setTitle('')
+    
   }
 
   return (
