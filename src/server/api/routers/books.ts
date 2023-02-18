@@ -1,4 +1,4 @@
-import { any, z } from "zod";
+import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const bookRouter = createTRPCRouter({
@@ -14,13 +14,7 @@ export const bookRouter = createTRPCRouter({
                 name: input.name,
                 description: input.description,
                 userId: ctx.session.user.id,
-                category: input.category,
-                notes: {
-                    create: {
-                        body: '',
-                        title:''
-                    }
-                }
+                category: input.category
             },
         })
         return books

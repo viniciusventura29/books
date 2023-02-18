@@ -1,9 +1,8 @@
-import { GetServerSidePropsContext } from "next";
-import {
+import type { GetServerSidePropsContext } from "next";
+import type {
   Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
+  SetStateAction} from "react";
+import {
   useState,
 } from "react";
 import { api } from "../../../utils/api";
@@ -21,6 +20,7 @@ interface INote {
 interface IModalSide {
   openSideModal: boolean;
   setOpenSideModal: Dispatch<SetStateAction<boolean>>;
+  bookId:string
 }
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
@@ -55,8 +55,21 @@ const SingleNote = (note: INote) => {
 };
 
 const SideModal = (modalSideProps: IModalSide) => {
+  const util = api.useContext()
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
+
+  const createNote = api.notes.createNote.useMutation({onSuccess: async()=>{
+    await util.notes.getAllNotes.invalidate()
+  }})
+
+  const saveNote = ()=>{
+    createNote.mutate({
+      bookId: modalSideProps.bookId,
+      title:title,
+      body:body
+    })
+  }
 
   return (
     <div
@@ -89,7 +102,7 @@ const SideModal = (modalSideProps: IModalSide) => {
             id=""
           />{" "}
         </span>
-        <button className="mt-1 rounded bg-green-600 py-1 text-white hover:bg-green-700">
+        <button onClick={saveNote} className="mt-1 rounded bg-green-600 py-1 text-white hover:bg-green-700">
           Save
         </button>
       </div>
@@ -98,12 +111,10 @@ const SideModal = (modalSideProps: IModalSide) => {
 };
 
 export default function Notes(props: { id: { id: string } }) {
-  const util = api.useContext();
   const idBook = props.id.id;
   const notesList = api.notes.getAllNotes.useQuery({ bookId: idBook });
 
   const [openSideModal, setOpenSideModal] = useState(false);
-  console.log(openSideModal);
 
   return (
     <div className="flex flex-col bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
@@ -123,7 +134,7 @@ export default function Notes(props: { id: { id: string } }) {
           ))}
           <div
             onClick={() => setOpenSideModal(true)}
-            className="mb-6 flex h-64 w-full flex-col justify-between rounded-lg border border-gray-400 bg-white py-5 px-4 opacity-70 transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
+            className="cursor-pointer mb-6 flex h-64 w-full flex-col justify-between rounded-lg border border-gray-400 bg-white py-5 px-4 opacity-70 transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
           >
             <div>
               <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
@@ -151,6 +162,7 @@ export default function Notes(props: { id: { id: string } }) {
       <SideModal
         openSideModal={openSideModal}
         setOpenSideModal={setOpenSideModal}
+        bookId={idBook}
       />
     </div>
   );
