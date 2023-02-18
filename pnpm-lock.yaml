@@ -23,7 +23,7 @@ specifiers:
   postcss: ^8.4.14
   prettier: ^2.8.1
   prettier-plugin-tailwindcss: ^0.2.1
-  prisma: ^4.8.0
+  prisma: ^4.10.1
   react: 18.2.0
   react-dom: 18.2.0
   superjson: 1.9.1
