@@ -69,6 +69,8 @@ const SideModal = (modalSideProps: IModalSide) => {
       title:title,
       body:body
     })
+    setBody('')
+    setTitle('')
   }
 
   return (
@@ -87,20 +89,21 @@ const SideModal = (modalSideProps: IModalSide) => {
       </div>
       <div className="flex flex-col gap-3">
         <h2 className="mb-2 text-2xl font-bold">Create Note</h2>
-        <input className="rounded border p-2" type="text" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} />
+        <input value={title} className="rounded border p-2" type="text" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} />
         <textarea
           className="resize-none rounded border p-2"
           placeholder="Write the body here..."
           onChange={(e)=>setBody(e.target.value)}
+          value={body}
         ></textarea>
         <span className="flex items-center gap-2">
-          Color selection:{" "}
+          Color selection:
           <input
             className="h-6 w-6 border-none outline-none"
             type="color"
             name=""
             id=""
-          />{" "}
+          />
         </span>
         <button onClick={saveNote} className="mt-1 rounded bg-green-600 py-1 text-white hover:bg-green-700">
           Save
