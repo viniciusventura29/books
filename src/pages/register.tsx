@@ -12,13 +12,13 @@ export default function Register (){
         void router.push('/login')
     }});
 
-    const register =()=>[
+    const register =()=>{
         mutate({
             name,
             email,
             password
         })
-    ]
+    }
 
     return(
         <section className="bg-gray-50 dark:bg-gray-900">

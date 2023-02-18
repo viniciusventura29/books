@@ -1,13 +1,11 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import {useRouter}  from "next/router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter()
   
 
   const login = (e: FormEvent) => {
