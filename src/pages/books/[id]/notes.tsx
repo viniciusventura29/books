@@ -31,7 +31,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 
 const SingleNote = (note: INote) => {
   return (
-    <div className="mb-6 flex h-64 w-full flex-col justify-between rounded-lg border border-gray-400 bg-white py-5 px-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border border-gray-400 bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}>
       <div>
         <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
           {note.title}
@@ -58,6 +58,7 @@ const SideModal = (modalSideProps: IModalSide) => {
   const util = api.useContext()
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
+  const [color, setColor] = useState("white");
 
   const createNote = api.notes.createNote.useMutation({onSuccess: async()=>{
     await util.notes.getAllNotes.invalidate()
@@ -69,7 +70,8 @@ const SideModal = (modalSideProps: IModalSide) => {
     createNote.mutate({
       bookId: modalSideProps.bookId,
       title:title,
-      body:body
+      body:body,
+      color: color
     })
     
   }
@@ -99,12 +101,11 @@ const SideModal = (modalSideProps: IModalSide) => {
         ></textarea>
         <span className="flex items-center gap-2">
           Color selection:
-          <input
-            className="h-6 w-6 border-none outline-none"
-            type="color"
-            name=""
-            id=""
-          />
+          <button onClick={()=>setColor('yellow-50')} className="bg-yellow-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
+          <button onClick={()=>setColor('red-50')} className="bg-red-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
+          <button onClick={()=>setColor('green-50')} className="bg-green-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
+          <button onClick={()=>setColor('purple-50')} className="bg-purple-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
+          <button onClick={()=>setColor('white')} className="bg-white rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
         </span>
         <button onClick={saveNote} className="mt-1 rounded bg-green-600 py-1 text-white hover:bg-green-700">
           Save
@@ -129,7 +130,7 @@ export default function Notes(props: { id: { id: string } }) {
           {notesList.data?.map((note) => (
             <SingleNote
               key={note.id}
-              color="white"
+              color={note.color}
               title={note.title}
               updatedAt={note.updatedAt.getDate().toString()}
               id={note.id}

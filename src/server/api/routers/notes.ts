@@ -9,6 +9,7 @@ export const notesRouter = createTRPCRouter({
         title: z.string(),
         body: z.string(),
         bookId: z.string(),
+        color: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -17,6 +18,7 @@ export const notesRouter = createTRPCRouter({
           body: input.body,
           title: input.title,
           bookId: input.bookId,
+          color: input.color,
         },
       });
       return note;
