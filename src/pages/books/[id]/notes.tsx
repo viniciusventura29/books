@@ -8,6 +8,7 @@ import {
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/Breadcrumb";
 import { IconPencil, IconPlus } from "@tabler/icons-react";
+import { Sidebar } from "../../../components/Sidebar";
 
 interface INote {
   id: string;
@@ -123,8 +124,9 @@ export default function Notes(props: { id: { id: string } }) {
 
   return (
     <div className="flex flex-col bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
+      <Sidebar idBook={idBook} />
       <Breadcrumb idBook={idBook} toolName="Notes" />
-      <div className="mx-auto flex min-h-screen w-auto min-w-[75%] max-w-min flex-col py-10">
+      <div className="mx-auto flex min-h-screen w-auto min-w-[70%] max-w-min flex-col py-10">
         <h2 className="mb-10 text-3xl font-semibold">Notes</h2>
         <div className="mt-20 grid grid-flow-row grid-cols-4 gap-4">
           {notesList.data?.map((note) => (
