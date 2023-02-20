@@ -134,7 +134,7 @@ export default function Notes(props: { id: { id: string } }) {
               key={note.id}
               color={note.color}
               title={note.title}
-              updatedAt={note.updatedAt.getDate().toString()}
+              updatedAt={note.updatedAt.toLocaleDateString()}
               id={note.id}
               body={note.body}
             />
