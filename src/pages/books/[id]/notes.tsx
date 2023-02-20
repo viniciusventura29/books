@@ -27,6 +27,12 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 };
 
 const SingleNote = (note: INote) => {
+  const util = api.useContext();
+
+  const deleteNote = api.notes.deleteNote.useMutation({onSuccess: ()=>{
+    void util.notes.getAllNotes.invalidate()
+  }})
+
   return (
     <div
       className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
@@ -42,6 +48,7 @@ const SingleNote = (note: INote) => {
           <p className="text-sm">{note.updatedAt}</p>
           <div className="flex gap-2">
             <button
+            onClick={()=>deleteNote.mutate({id:note.id})}
               className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-white focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 dark:bg-gray-100  dark:text-gray-800"
               aria-label="edit note"
               role="button"
