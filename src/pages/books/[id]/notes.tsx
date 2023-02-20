@@ -1,13 +1,9 @@
 import type { GetServerSidePropsContext } from "next";
-import type {
-  Dispatch,
-  SetStateAction} from "react";
-import {
-  useState,
-} from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/Breadcrumb";
-import { IconPencil, IconPlus } from "@tabler/icons-react";
+import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 import { Sidebar } from "../../../components/Sidebar";
 
 interface INote {
@@ -21,7 +17,7 @@ interface INote {
 interface IModalSide {
   openSideModal: boolean;
   setOpenSideModal: Dispatch<SetStateAction<boolean>>;
-  bookId:string
+  bookId: string;
 }
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
@@ -32,7 +28,9 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 
 const SingleNote = (note: INote) => {
   return (
-    <div className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}>
+    <div
+      className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
+    >
       <div>
         <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
           {note.title}
@@ -42,13 +40,22 @@ const SingleNote = (note: INote) => {
       <div>
         <div className="flex items-center justify-between text-gray-800 dark:text-gray-100">
           <p className="text-sm">{note.updatedAt}</p>
-          <button
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-gray-100  dark:text-gray-800"
-            aria-label="edit note"
-            role="button"
-          >
-            <IconPencil size={20} />
-          </button>
+          <div className="flex gap-2">
+            <button
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-white focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 dark:bg-gray-100  dark:text-gray-800"
+              aria-label="edit note"
+              role="button"
+            >
+              <IconTrash size={20} />
+            </button>
+            <button
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-gray-100  dark:text-gray-800"
+              aria-label="edit note"
+              role="button"
+            >
+              <IconPencil size={20} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -56,26 +63,27 @@ const SingleNote = (note: INote) => {
 };
 
 const SideModal = (modalSideProps: IModalSide) => {
-  const util = api.useContext()
+  const util = api.useContext();
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("white");
 
-  const createNote = api.notes.createNote.useMutation({onSuccess: async()=>{
-    await util.notes.getAllNotes.invalidate()
-    setBody('')
-    setTitle('')
-  }})
+  const createNote = api.notes.createNote.useMutation({
+    onSuccess: async () => {
+      await util.notes.getAllNotes.invalidate();
+      setBody("");
+      setTitle("");
+    },
+  });
 
-  const saveNote = ()=>{
+  const saveNote = () => {
     createNote.mutate({
       bookId: modalSideProps.bookId,
-      title:title,
-      body:body,
-      color: color
-    })
-    
-  }
+      title: title,
+      body: body,
+      color: color,
+    });
+  };
 
   return (
     <div
@@ -93,22 +101,46 @@ const SideModal = (modalSideProps: IModalSide) => {
       </div>
       <div className="flex flex-col gap-3">
         <h2 className="mb-2 text-2xl font-bold">Create Note</h2>
-        <input value={title} className="rounded border p-2" type="text" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} />
+        <input
+          value={title}
+          className="rounded border p-2"
+          type="text"
+          placeholder="Title"
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <textarea
           className="resize-none rounded border p-2"
           placeholder="Write the body here..."
-          onChange={(e)=>setBody(e.target.value)}
+          onChange={(e) => setBody(e.target.value)}
           value={body}
         ></textarea>
         <span className="flex items-center gap-2">
           Color selection:
-          <button onClick={()=>setColor('yellow-50')} className="bg-yellow-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
-          <button onClick={()=>setColor('red-50')} className="bg-red-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
-          <button onClick={()=>setColor('green-50')} className="bg-green-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
-          <button onClick={()=>setColor('purple-50')} className="bg-purple-100 rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
-          <button onClick={()=>setColor('white')} className="bg-white rounded-full h-4 w-4 border-gray-700 border-[1px] mt-[2px]"></button>
+          <button
+            onClick={() => setColor("yellow-50")}
+            className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-yellow-100"
+          ></button>
+          <button
+            onClick={() => setColor("red-50")}
+            className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-red-100"
+          ></button>
+          <button
+            onClick={() => setColor("green-50")}
+            className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-green-100"
+          ></button>
+          <button
+            onClick={() => setColor("purple-50")}
+            className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-purple-100"
+          ></button>
+          <button
+            onClick={() => setColor("white")}
+            className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-white"
+          ></button>
         </span>
-        <button onClick={saveNote} className="mt-1 rounded bg-green-600 py-1 text-white hover:bg-green-700">
+        <button
+          onClick={saveNote}
+          className="mt-1 rounded bg-green-600 py-1 text-white hover:bg-green-700"
+        >
           Save
         </button>
       </div>
@@ -141,7 +173,7 @@ export default function Notes(props: { id: { id: string } }) {
           ))}
           <div
             onClick={() => setOpenSideModal(true)}
-            className="cursor-pointer mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-white py-5 px-4 opacity-70 transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
+            className="mb-6 flex h-64 w-full cursor-pointer flex-col justify-between rounded-lg border bg-white py-5 px-4 opacity-70 shadow-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
           >
             <div>
               <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
