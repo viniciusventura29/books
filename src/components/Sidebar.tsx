@@ -19,13 +19,13 @@ export const Sidebar = (idBook:{ idBook: string; }) =>{
       <h2 className="text-3xl py-4">{bookName.data?.name}</h2>
       <ul className="space-y-2">
          <li>
-            <Link href={`${idBook.idBook}/todo`} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
+            <Link href={{pathname: '/books/[id]/todo', query: {id: idBook.idBook}}} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
                <IconListCheck />
                <span className="ml-3">To Do</span>
             </Link>
          </li>
          <li>
-            <Link href={`${idBook.idBook}/notes`} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
+            <Link href={{pathname: '/books/[id]/notes', query: {id: idBook.idBook}}} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
                <IconNote />
                <span className="ml-3">Notes</span>
             </Link>
