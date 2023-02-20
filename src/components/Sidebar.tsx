@@ -15,17 +15,17 @@ export const Sidebar = (idBook:{ idBook: string; }) =>{
 </button>
 
 <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 shadow" aria-label="Sidebar">
-   <div className="h-full px-3 py-4 overflow-y-auto bg-slate-50 dark:bg-gray-800">
-      <h2 className="text-3xl py-4">{bookName.data?.name}</h2>
-      <ul className="space-y-2">
+   <div className="h-full p-4 overflow-y-auto bg-slate-50 dark:bg-gray-800">
+      <Link href={{pathname: '/books/[id]', query:{id: idBook.idBook}}} className="hover:text-purple-900 text-3xl py-4">{bookName.data?.name}</Link>
+      <ul className="space-y-2 mt-6">
          <li>
-            <Link href={{pathname: '/books/[id]/todo', query: {id: idBook.idBook}}} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
+            <Link href={{pathname: '/books/[id]/todo', query: {id: idBook.idBook}}} className="flex items-center py-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
                <IconListCheck />
                <span className="ml-3">To Do</span>
             </Link>
          </li>
          <li>
-            <Link href={{pathname: '/books/[id]/notes', query: {id: idBook.idBook}}} className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
+            <Link href={{pathname: '/books/[id]/notes', query: {id: idBook.idBook}}} className="flex items-center py-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
                <IconNote />
                <span className="ml-3">Notes</span>
             </Link>
