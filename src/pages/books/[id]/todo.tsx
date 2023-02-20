@@ -1,5 +1,6 @@
-import { GetServerSidePropsContext } from "next";
-import { FormEvent, useState } from "react";
+import type { GetServerSidePropsContext } from "next";
+import type { FormEvent} from "react";
+import { useState } from "react";
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/Breadcrumb";
 import { Sidebar } from "../../../components/Sidebar";
