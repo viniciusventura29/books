@@ -32,7 +32,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 
 const SingleNote = (note: INote) => {
   return (
-    <div className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border border-gray-400 bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}>
+    <div className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}>
       <div>
         <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
           {note.title}
@@ -141,7 +141,7 @@ export default function Notes(props: { id: { id: string } }) {
           ))}
           <div
             onClick={() => setOpenSideModal(true)}
-            className="cursor-pointer mb-6 flex h-64 w-full flex-col justify-between rounded-lg border border-gray-400 bg-white py-5 px-4 opacity-70 transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
+            className="cursor-pointer mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-white py-5 px-4 opacity-70 transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
           >
             <div>
               <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">

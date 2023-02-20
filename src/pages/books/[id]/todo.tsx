@@ -12,8 +12,6 @@ interface propsBookId {
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;
 
-	console.log(id)
-
   return { props: { id } };
 };
 
