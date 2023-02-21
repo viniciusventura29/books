@@ -28,6 +28,8 @@ model Book {
     notes       Notes[]
     toDos       ToDo[]
     user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
 }
 
 model Notes {
@@ -38,6 +40,8 @@ model Notes {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+    @@index([bookId])
 }
 
 model ToDo {
@@ -46,6 +50,8 @@ model ToDo {
     check  Boolean
     title  String
     book   Book    @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+    @@index([bookId])
 }
 
 model User {
