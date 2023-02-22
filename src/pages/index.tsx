@@ -2,8 +2,8 @@ import { IconPencil } from "@tabler/icons-react";
 import type { GetServerSidePropsContext} from "next";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { Footer } from "../components/Footer";
-import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/global/Footer";
+import { Navbar } from "../components/global/Navbar";
 import { getServerAuthSession } from "../server/auth";
 import Link from "next/link";
 

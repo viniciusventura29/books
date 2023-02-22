@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import type { Dispatch, FormEvent, SetStateAction } from "react";
 import { useState } from "react";
-import { api } from "../utils/api";
+import { api } from "../../utils/api";
 
 export interface ICreateCollectionProps {
   isOpen: boolean

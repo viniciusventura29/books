@@ -2,8 +2,8 @@ import type { GetServerSidePropsContext } from "next";
 import type { FormEvent} from "react";
 import { useState } from "react";
 import { api } from "../../../utils/api";
-import { Breadcrumb } from "../../../components/Breadcrumb";
-import { Sidebar } from "../../../components/Sidebar";
+import { Breadcrumb } from "../../../components/global/Breadcrumb";
+import { Sidebar } from "../../../components/global/Sidebar";
 
 interface propsBookId {
   bookId: string;

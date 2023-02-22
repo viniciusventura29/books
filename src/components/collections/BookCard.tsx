@@ -1,7 +1,7 @@
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
-import { api } from "../utils/api";
-import { RouterOutputs } from "../pages/api/trpc/[trpc]";
+import { api } from "../../utils/api";
+import { RouterOutputs } from "../../pages/api/trpc/[trpc]";
 
 const OptionsComponent = ({
   id,

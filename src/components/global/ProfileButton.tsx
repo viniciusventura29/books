@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { api } from "../utils/api"
+import { api } from "../../utils/api"
 import { signOut } from "next-auth/react"
 import { IconLogout } from "@tabler/icons-react"
-import { RouterOutputs } from "../pages/api/trpc/[trpc]"
+import { RouterOutputs } from "../../pages/api/trpc/[trpc]"
 
 interface IOptionsUser{
     optionsUserOpen: boolean

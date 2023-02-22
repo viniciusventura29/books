@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { api } from "../utils/api";
-import CreateCollection from "../components/CreateCollection";
+import CreateCollection from "../components/collections/CreateCollection";
 import Link from "next/link";
-import { ProfileButton } from "../components/ProfileButton";
-import { BookCard } from "../components/BookCard";
+import { ProfileButton } from "../components/global/ProfileButton";
+import { BookCard } from "../components/collections/BookCard";
 import { getServerAuthSession } from "../server/auth";
 import { GetServerSidePropsContext } from "next";
 import { IconHome2 } from "@tabler/icons-react";
