@@ -24,15 +24,19 @@ export const notesRouter = createTRPCRouter({
       return note;
     }),
 
-    deleteNote: protectedProcedure.input(z.object({
-      id:z.string()
-    })).mutation(({ctx, input})=>{
-      const note = ctx.prisma.notes.delete({
-        where:{
-          id:input.id
-        }
+  deleteNote: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
       })
-      return note
+    )
+    .mutation(({ ctx, input }) => {
+      const note = ctx.prisma.notes.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return note;
     }),
 
   updateNote: protectedProcedure
@@ -40,13 +44,14 @@ export const notesRouter = createTRPCRouter({
       z.object({
         title: z.string(),
         body: z.string(),
-        bookId: z.string(),
+        noteId: z.string(),
+        color: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const noteToUpdate = await ctx.prisma.notes.findFirst({
         where: {
-          bookId: input.bookId,
+          id: input.noteId
         },
       });
 
@@ -59,6 +64,7 @@ export const notesRouter = createTRPCRouter({
         data: {
           body: input.body,
           title: input.title,
+          color: input.color,
         },
         where: {
           id: noteToUpdate.id,

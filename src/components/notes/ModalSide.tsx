@@ -8,6 +8,7 @@ interface IModalSide {
   body?: string;
   title?: string;
   color?: string;
+	NoteId: string
 }
 
 export const SideModal = (modalSideProps: IModalSide) => {
@@ -21,7 +22,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
     setBody(modalSideProps.body ? modalSideProps.body : "");
     setTitle(modalSideProps.title ? modalSideProps.title : "");
     setColor(modalSideProps.color ? modalSideProps.color : "");
-  });
+  },[modalSideProps.openSideModal]);
 
   const createNote = api.notes.createNote.useMutation({
     onSuccess: async () => {
@@ -32,13 +33,33 @@ export const SideModal = (modalSideProps: IModalSide) => {
     },
   });
 
+	const updateNote = api.notes.updateNote.useMutation({
+    onSuccess: async () => {
+      await util.notes.getAllNotes.invalidate();
+      setBody("");
+      setTitle("");
+      setColor("white");
+			modalSideProps.setOpenSideModal(false)
+    },
+  });
+
   const saveNote = () => {
-    createNote.mutate({
-      bookId: modalSideProps.bookId,
-      title: title,
-      body: body,
-      color: color,
-    });
+    if (body !== ""){
+			updateNote.mutate({
+				body,
+				title,
+				noteId: modalSideProps.NoteId,
+				color,
+			})
+		}
+		else{
+			createNote.mutate({
+				bookId: modalSideProps.bookId,
+				title: title,
+				body: body,
+				color: color,
+			});
+		}
   };
 
   return (

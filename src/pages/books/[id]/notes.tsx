@@ -21,6 +21,7 @@ export default function Notes(props: { id: { id: string } }) {
   const [body, setBody] = useState('')
   const [title, setTitle] = useState('')
   const [color, setColor] = useState('')
+  const [noteId, setNoteId]= useState('')
   const [openSideModal, setOpenSideModal] = useState(false);
 
   return (
@@ -43,6 +44,7 @@ export default function Notes(props: { id: { id: string } }) {
               id={note.id}
               body={note.body}
               idBook={note.bookId}
+              setNoteId={setNoteId}
             />
           ))}
           <div
@@ -79,6 +81,7 @@ export default function Notes(props: { id: { id: string } }) {
         body={body}
         title={title}
         color={color}
+        NoteId={noteId}
       />
     </div>
   );
