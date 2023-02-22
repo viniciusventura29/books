@@ -17,6 +17,10 @@ export default function Notes(props: { id: { id: string } }) {
   const idBook = props.id.id;
   const notesList = api.notes.getAllNotes.useQuery({ bookId: idBook });
 
+
+  const [body, setBody] = useState('')
+  const [title, setTitle] = useState('')
+  const [color, setColor] = useState('')
   const [openSideModal, setOpenSideModal] = useState(false);
 
   return (
@@ -28,7 +32,10 @@ export default function Notes(props: { id: { id: string } }) {
         <div className="mt-20 grid grid-flow-row grid-cols-4 gap-4">
           {notesList.data?.map((note) => (
             <SingleNote
-            modalSideSetOpen={setOpenSideModal}
+              modalSideSetOpen={setOpenSideModal}
+              setBody={setBody}
+              setTitle={setTitle}
+              setColor={setColor}
               key={note.id}
               color={note.color}
               title={note.title}
@@ -69,6 +76,9 @@ export default function Notes(props: { id: { id: string } }) {
         openSideModal={openSideModal}
         setOpenSideModal={setOpenSideModal}
         bookId={idBook}
+        body={body}
+        title={title}
+        color={color}
       />
     </div>
   );

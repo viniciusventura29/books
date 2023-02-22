@@ -10,11 +10,12 @@ interface INote {
     color: string;
     idBook: string;
     modalSideSetOpen:  Dispatch<SetStateAction<boolean>>;
+    setBody: Dispatch<SetStateAction<string>>
+    setTitle: Dispatch<SetStateAction<string>>
+    setColor: Dispatch<SetStateAction<string>>
   }
 
 export const SingleNote = (note: INote) => {
-    const [openSideModal,setOpenSideModal] = useState(false)
-
     const util = api.useContext();
   
     const deleteNote = api.notes.deleteNote.useMutation({onSuccess: ()=>{
@@ -44,7 +45,7 @@ export const SingleNote = (note: INote) => {
                 <IconTrash size={20} />
               </button>
               <button
-                onClick={()=>{note.modalSideSetOpen(true)}}
+                onClick={()=>{note.modalSideSetOpen(true); note.setBody(note.body); note.setTitle(note.title); note.setColor(note.color)}}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 dark:bg-gray-100  dark:text-gray-800"
                 aria-label="edit note"
                 role="button"
