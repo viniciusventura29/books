@@ -23,6 +23,7 @@ export default function TasksBooks(props: { id: { id: string } }) {
           <div  className="mt-20 grid grid-flow-row grid-cols-4 gap-4 relative h-64">
             {notesList.data?.slice(0,4).map((note)=>(
               <div
+              key={note.id}
               className={`mb-6 flex h-full w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
             >
               <div className="h-full">
