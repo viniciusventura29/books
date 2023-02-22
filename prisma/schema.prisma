@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
     relationMode = "prisma"
 }
 
@@ -37,6 +37,7 @@ model Notes {
     bookId    String
     title     String
     body      String
+    color     String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
