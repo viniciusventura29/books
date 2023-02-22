@@ -4,11 +4,13 @@ import { api } from "../../utils/api";
 interface IModalSide {
   openSideModal: boolean;
   setOpenSideModal: Dispatch<SetStateAction<boolean>>;
+	editing: boolean;
   bookId: string;
   body?: string;
   title?: string;
   color?: string;
-	NoteId: string
+	NoteId: string;
+	setEditing: Dispatch<SetStateAction<boolean>>;
 }
 
 export const SideModal = (modalSideProps: IModalSide) => {
@@ -22,7 +24,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
     setBody(modalSideProps.body ? modalSideProps.body : "");
     setTitle(modalSideProps.title ? modalSideProps.title : "");
     setColor(modalSideProps.color ? modalSideProps.color : "");
-  },[modalSideProps.openSideModal]);
+  },[modalSideProps.body]);
 
   const createNote = api.notes.createNote.useMutation({
     onSuccess: async () => {
@@ -38,13 +40,14 @@ export const SideModal = (modalSideProps: IModalSide) => {
       await util.notes.getAllNotes.invalidate();
       setBody("");
       setTitle("");
-      setColor("white");
 			modalSideProps.setOpenSideModal(false)
+			modalSideProps.setEditing(false)
     },
   });
 
   const saveNote = () => {
-    if (body !== ""){
+		console.log(modalSideProps.editing)
+    if (modalSideProps.editing === true){
 			updateNote.mutate({
 				body,
 				title,
@@ -53,11 +56,12 @@ export const SideModal = (modalSideProps: IModalSide) => {
 			})
 		}
 		else{
+			console.log(color)
 			createNote.mutate({
 				bookId: modalSideProps.bookId,
 				title: title,
 				body: body,
-				color: color,
+				color: color? color : "white",
 			});
 		}
   };
@@ -72,7 +76,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
     >
       <div
         className="mb-12 flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-red-500 p-2 text-white hover:bg-red-600"
-        onClick={() => modalSideProps.setOpenSideModal(false)}
+        onClick={() => {modalSideProps.setOpenSideModal(false); modalSideProps.setEditing(false)}}
       >
         X
       </div>

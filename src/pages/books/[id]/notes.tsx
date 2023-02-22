@@ -17,11 +17,11 @@ export default function Notes(props: { id: { id: string } }) {
   const idBook = props.id.id;
   const notesList = api.notes.getAllNotes.useQuery({ bookId: idBook });
 
-
-  const [body, setBody] = useState('')
-  const [title, setTitle] = useState('')
-  const [color, setColor] = useState('')
-  const [noteId, setNoteId]= useState('')
+  const [body, setBody] = useState("");
+  const [title, setTitle] = useState("");
+  const [color, setColor] = useState("");
+  const [noteId, setNoteId] = useState("");
+  const [editing, setEditing] = useState(false);
   const [openSideModal, setOpenSideModal] = useState(false);
 
   return (
@@ -45,10 +45,17 @@ export default function Notes(props: { id: { id: string } }) {
               body={note.body}
               idBook={note.bookId}
               setNoteId={setNoteId}
+              setEditing={setEditing}
             />
           ))}
           <div
-            onClick={() => setOpenSideModal(true)}
+            onClick={() => {
+              setOpenSideModal(true);
+              setBody("");
+              setTitle("");
+              setColor("");
+              setNoteId("");
+            }}
             className="mb-6 flex h-64 w-full cursor-pointer flex-col justify-between rounded-lg border bg-white py-5 px-4 opacity-70 shadow-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-500 dark:border-gray-700 dark:bg-gray-800"
           >
             <div>
@@ -82,6 +89,8 @@ export default function Notes(props: { id: { id: string } }) {
         title={title}
         color={color}
         NoteId={noteId}
+        editing={editing}
+        setEditing={setEditing}
       />
     </div>
   );
