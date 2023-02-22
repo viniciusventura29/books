@@ -1,5 +1,5 @@
 # Books App
-This is a website developed to improve and assist your personal tasks
+This is a website developed to improve and assist you doing your personal tasks!
 
 ## Technologies
 - [X] NextAuth
