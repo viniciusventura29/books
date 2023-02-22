@@ -37,11 +37,11 @@ const SingleNote = (note: INote) => {
     <div
       className={`mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
     >
-      <div>
+      <div className="h-full">
         <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
           {note.title}
         </h4>
-        <p className="text-sm text-gray-800 dark:text-gray-100">{note.body}</p>
+        <textarea readOnly={true} className="focus:outline-none resize-none text-sm text-gray-800 dark:text-gray-100 w-full h-full bg-transparent">{note.body}</textarea>
       </div>
       <div>
         <div className="flex items-center justify-between text-gray-800 dark:text-gray-100">
@@ -80,6 +80,7 @@ const SideModal = (modalSideProps: IModalSide) => {
       await util.notes.getAllNotes.invalidate();
       setBody("");
       setTitle("");
+      setColor("white")
     },
   });
 
