@@ -46,10 +46,10 @@ const Home: NextPage = () => {
             <IconPencil size={18} />
           </Link>
         </div>
-        <div className="flex flex-col px-96 gap-28">
-          <div className="bg-gray-300 rounded-lg w-full h-52"></div>
-          <div className="bg-gray-300 rounded-lg w-full h-52"></div>
-          <div className="bg-gray-300 rounded-lg w-full h-52"></div>
+        <div className="flex flex-col md:px-72 px-96 md:gap-20 gap-28">
+          <div className="bg-gray-300 rounded-lg w-full md:h-44 h-52"></div>
+          <div className="bg-gray-300 rounded-lg w-full md:h-44 h-52"></div>
+          <div className="bg-gray-300 rounded-lg w-full md:h-44 h-52"></div>
         </div>
         <Footer />
       </main>
