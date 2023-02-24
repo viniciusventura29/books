@@ -1,13 +1,10 @@
 import type { GetServerSidePropsContext } from "next";
-import type { FormEvent} from "react";
+import type { FormEvent } from "react";
 import { useState } from "react";
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/global/Breadcrumb";
 import { Sidebar } from "../../../components/global/Sidebar";
-
-interface propsBookId {
-  bookId: string;
-}
+import { ToDoTask } from "../../../components/todo/TodoTask";
 
 export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const id = ctx.query;
@@ -15,70 +12,13 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: { id } };
 };
 
-const ToDoTask = ({ bookId }: propsBookId) => {
-  const util = api.useContext();
-  const toDoList = api.toDo.getAll.useQuery({ bookId });
-  const updateCheck = api.toDo.updateCheck.useMutation({
-    onSuccess: async() => {
-      await util.toDo.getAll.invalidate();
-    },
-  });
-
-  const deleteTaskMutation = api.toDo.deleteTask.useMutation({
-    onSuccess: async() => {
-      await util.toDo.getAll.invalidate();
-    },
-  });
-
-  function deleteTask(singleTaskId: string) {
-    deleteTaskMutation.mutate({
-      taskId: singleTaskId,
-    });
-  }
-
-  function checkboxUpdate(singleTaskId: string, check: boolean) {
-    updateCheck.mutate({
-      id: singleTaskId,
-      check,
-    });
-  }
-
-  return (
-    <div className="flex flex-col gap-4">
-      {toDoList.data?.map((task) => (
-        <div
-          className={`flex gap-2 text-justify ${
-            task.check ? "text-gray-400 line-through" : "text-black"
-          }`}
-          key={task.id}
-        >
-          <input
-            type="checkbox"
-            id={task.id}
-            onChange={() => checkboxUpdate(task.id, !task.check)}
-            defaultChecked={task.check}
-          />
-          <label className="w-full select-none" htmlFor={task.id}>
-            {task.title}
-          </label>
-          <button
-            onClick={() => deleteTask(task.id)}
-            className="ml-5 flex h-7 cursor-pointer rounded bg-red-500 px-2 py-1 text-sm text-white hover:bg-red-600"
-          >
-            X
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-};
-
 export default function Todo(props: { id: { id: string } }) {
   const util = api.useContext();
   const idBook = props.id.id;
 
-	const [title, setTilte] = useState("");
+  const [title, setTilte] = useState("");
 
+  const todoList = api.toDo.getAll.useQuery({ bookId: idBook });
   const { mutate } = api.toDo.createToDo.useMutation({
     onSuccess: () => util.toDo.getAll.invalidate(),
   });
@@ -97,10 +37,20 @@ export default function Todo(props: { id: { id: string } }) {
     <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
       <Sidebar idBook={idBook} />
       <Breadcrumb idBook={idBook} toolName="Notes" />
-      <div className="mx-auto flex py-10 justify-center min-h-screen w-auto min-w-[50%] max-w-min">
+      <div className="mx-auto flex min-h-screen w-auto min-w-[50%] max-w-min justify-center py-10">
         <div id="ToDo" className="w-[40rem]">
-          <h2 className="mb-10 text-3xl font-semibold">To Do</h2>
-          <ToDoTask bookId={idBook} />
+          <h2 className="mb-10 text-3xl font-semibold ">To Do</h2>
+          <div className="flex flex-col gap-4">
+            {todoList.data?.map((todo) => (
+              <ToDoTask
+                TaskCheck={todo.check}
+                taskId={todo.id}
+                title={todo.title}
+                key={todo.id}
+                bookId={todo.bookId}
+              />
+            ))}
+          </div>
           <form onSubmit={addTaskLine}>
             <input
               type="text"
