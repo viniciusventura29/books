@@ -1,4 +1,4 @@
-import { IconListCheck, IconNote } from "@tabler/icons-react"
+import { IconChevronLeft, IconListCheck, IconNote } from "@tabler/icons-react"
 import Link from "next/link"
 import { api } from "../../utils/api";
 
@@ -16,7 +16,10 @@ export const Sidebar = (idBook:{ idBook: string; }) =>{
 
 <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 shadow" aria-label="Sidebar">
    <div className="h-full p-4 overflow-y-auto bg-slate-50 dark:bg-gray-800">
-      <Link href={{pathname: '/books/[id]', query:{id: idBook.idBook}}} className="hover:text-purple-900 text-3xl py-4">{bookName.data?.name}</Link>
+      <div className="flex gap-2 items-center">
+         <Link href={"/books/"}><IconChevronLeft /></Link>
+      <Link href={{pathname: '/books/[id]', query:{id: idBook.idBook}}} className="hover:text-purple-900 text-3xl py-4 mb-2">{bookName.data?.name}</Link>
+      </div>
       <ul className="space-y-2 mt-6">
          <li>
             <Link href={{pathname: '/books/[id]/todo', query: {id: idBook.idBook}}} className="flex items-center py-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-slate-100 dark:hover:bg-gray-700">
