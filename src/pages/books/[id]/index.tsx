@@ -21,7 +21,7 @@ export default function TasksBooks(props: { id: { id: string } }) {
     <div className="flex flex-col bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
       <Breadcrumb idBook={idBook} toolName="" />
 
-      <div className="mx-auto flex min-h-screen w-auto min-w-[70%] max-w-min flex-col gap-20 py-10">
+      <div className="mx-auto flex min-h-screen w-auto lg:min-w-[55%] min-w-[70%] max-w-min flex-col gap-20 py-10">
         <section>
           <Link
             href={{ pathname: "/books/[id]/notes", query: { id: idBook } }}
