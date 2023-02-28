@@ -38,9 +38,7 @@ export const ToDoTask = (toDo: ITodoTask) => {
     return (
       <div className="flex flex-col gap-4">
           <div
-            className={`flex gap-2 text-justify ${
-                toDo.TaskCheck ? "text-gray-400 line-through" : "text-black"
-            }`}
+            className={`flex gap-4 text-justify `}
             key={toDo.taskId}
           >
             <input
@@ -48,8 +46,9 @@ export const ToDoTask = (toDo: ITodoTask) => {
               id={toDo.taskId}
               onChange={() => checkboxUpdate(toDo.taskId, !toDo.TaskCheck)}
               defaultChecked={toDo.TaskCheck}
+              className={`accent-green-700 ${toDo.TaskCheck ? "opacity-50" : ""}`}
             />
-            <label className="w-full select-none" htmlFor={toDo.taskId}>
+            <label className={`w-full select-none ${toDo.TaskCheck ? "text-gray-400 line-through" : "text-black"}`} htmlFor={toDo.taskId}>
               {toDo.title}
             </label>
             <button

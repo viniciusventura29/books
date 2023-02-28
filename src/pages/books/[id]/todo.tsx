@@ -59,8 +59,8 @@ export default function Todo(props: { id: { id: string } }) {
               onChange={(e) => setTilte(e.target.value)}
               value={title}
             />
-            <button className="mt-10 flex rounded bg-green-600 px-5 py-1 text-xs text-white transition-all hover:bg-green-500">
-              Add task +
+            <button className="mt-10 flex rounded bg-green-600 px-8 py-1 text-sm text-white transition-all hover:bg-green-500">
+              Add +
             </button>
           </form>
         </div>
