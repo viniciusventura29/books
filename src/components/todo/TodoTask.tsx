@@ -46,7 +46,7 @@ export const ToDoTask = (toDo: ITodoTask) => {
               id={toDo.taskId}
               onChange={() => checkboxUpdate(toDo.taskId, !toDo.TaskCheck)}
               defaultChecked={toDo.TaskCheck}
-              className={`accent-green-700 ${toDo.TaskCheck ? "opacity-50" : ""}`}
+              className={`accent-purple-700 ${toDo.TaskCheck ? "opacity-50" : ""}`}
             />
             <label className={`w-full select-none ${toDo.TaskCheck ? "text-gray-400 line-through" : "text-black"}`} htmlFor={toDo.taskId}>
               {toDo.title}
