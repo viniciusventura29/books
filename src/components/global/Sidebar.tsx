@@ -31,7 +31,7 @@ export const Sidebar = (idBook: { idBook: string }) => {
 
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 h-screen w-64 -translate-x-full shadow transition-transform sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 h-screen 2xl:w-64 w-48 -translate-x-full shadow transition-transform sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div className="h-full overflow-y-auto bg-slate-50 dark:bg-gray-800">
