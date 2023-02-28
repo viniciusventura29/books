@@ -98,23 +98,23 @@ export const SideModal = (modalSideProps: IModalSide) => {
           <span className="flex items-center gap-2">
             Color selection:
             <button
-              onClick={() => setColor("yellow-50")}
+              onClick={() => setColor("bg-yellow-50")}
               className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-yellow-100"
             ></button>
             <button
-              onClick={() => setColor("red-50")}
+              onClick={() => setColor("bg-red-50")}
               className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-red-100"
             ></button>
             <button
-              onClick={() => setColor("green-50")}
+              onClick={() => setColor("bg-green-50")}
               className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-green-100"
             ></button>
             <button
-              onClick={() => setColor("purple-50")}
+              onClick={() => setColor("bg-purple-50")}
               className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-purple-100"
             ></button>
             <button
-              onClick={() => setColor("white")}
+              onClick={() => setColor("bg-white")}
               className="mt-[2px] h-4 w-4 rounded-full border-[1px] border-gray-700 bg-white"
             ></button>
           </span>
