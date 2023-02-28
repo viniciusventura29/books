@@ -29,7 +29,7 @@ export const SingleNote = (note: INote) => {
 
   return (
     <div
-      className={`relative mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
+      className={`relative mb-6 flex h-64 w-full flex-col justify-between rounded-lg border shadow-lg ${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
     >
       <div className="h-full">
         <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">

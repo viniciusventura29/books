@@ -21,22 +21,19 @@ export default function TasksBooks(props: { id: { id: string } }) {
     <div className="flex flex-col bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
       <Breadcrumb idBook={idBook} toolName="" />
 
-      <div className="mx-auto flex min-h-screen w-auto lg:min-w-[55%] min-w-[70%] max-w-min flex-col gap-20 py-10">
+      <div className="mx-auto flex min-h-screen w-auto 2xl:min-w-[65%] min-w-[55%] max-w-min flex-col gap-20 py-10">
         <section>
           <Link
             href={{ pathname: "/books/[id]/notes", query: { id: idBook } }}
             className="relative mb-5 flex items-center"
           >
             <h2 className="text-2xl ">Your notes</h2>
-            <h3 className="absolute select-none text-5xl font-bold opacity-10 ">
-              Notes
-            </h3>
           </Link>
           <div className="relative grid h-64 grid-flow-row grid-cols-4 gap-4 hover:shadow-purple-500 hover:drop-shadow-lg">
             {notesList.data?.slice(0, 4).map((note) => (
               <div
                 key={note.id}
-                className={`mb-6 flex h-full w-full flex-col justify-between rounded-lg border shadow-lg bg-${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
+                className={`mb-6 flex h-full w-full flex-col justify-between rounded-lg border shadow-lg ${note.color} py-5 px-4 dark:border-gray-700 dark:bg-gray-800`}
               >
                 <div className="h-full">
                   <h4 className="mb-3 font-bold text-gray-800 dark:text-gray-100">
@@ -73,9 +70,6 @@ export default function TasksBooks(props: { id: { id: string } }) {
             className="relative mb-5 flex items-center"
           >
             <h2 className="text-2xl ">Your To do</h2>
-            <h3 className="absolute select-none text-5xl font-bold opacity-10 ">
-              To do
-            </h3>
           </Link>
           <div className="flex flex-col gap-2">
             {todoList.data?.map((todo) => (
