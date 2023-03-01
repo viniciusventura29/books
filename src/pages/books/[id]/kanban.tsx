@@ -1,6 +1,4 @@
 import type { GetServerSidePropsContext } from "next";
-import type { FormEvent } from "react";
-import { useState } from "react";
 import { api } from "../../../utils/api";
 import { Breadcrumb } from "../../../components/global/Breadcrumb";
 import { Sidebar } from "../../../components/global/Sidebar";
@@ -14,23 +12,6 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 export default function Todo(props: { id: { id: string } }) {
   const util = api.useContext();
   const idBook = props.id.id;
-
-  const [title, setTilte] = useState("");
-
-  const todoList = api.toDo.getAll.useQuery({ bookId: idBook });
-  const { mutate } = api.toDo.createToDo.useMutation({
-    onSuccess: () => util.toDo.getAll.invalidate(),
-  });
-
-  const addTaskLine = (e: FormEvent) => {
-    e.preventDefault();
-    mutate({
-      bookId: idBook,
-      title: title,
-      check: false,
-    });
-    setTilte("");
-  };
 
   return (
     <div className="bg-gray-100 transition duration-700 ease-in-out dark:bg-slate-900">
