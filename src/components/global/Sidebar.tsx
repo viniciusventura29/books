@@ -1,4 +1,4 @@
-import { IconChevronLeft, IconListCheck, IconNote } from "@tabler/icons-react";
+import { IconBrandTrello, IconChevronLeft, IconListCheck, IconNote } from "@tabler/icons-react";
 import Link from "next/link";
 import { api } from "../../utils/api";
 
@@ -36,12 +36,12 @@ export const Sidebar = (idBook: { idBook: string }) => {
       >
         <div className="h-full overflow-y-auto bg-slate-50 dark:bg-gray-800">
           <div className="flex items-center gap-5">
-            <Link className="hover:bg-gray-200 rounded ml-6 p-1" href={"/books/"}>
+            <div className="hover:bg-gray-200 rounded ml-6 p-1" onClick={()=>window.history.back()}>
               <IconChevronLeft />
-            </Link>
+            </div>
             <Link
               href={{ pathname: "/books/[id]", query: { id: idBook.idBook } }}
-              className="mb-2 py-4 text-3xl hover:text-purple-900"
+              className="mb-2 py-4 xl:text-2xl text-3xl hover:text-purple-900"
             >
               {bookName.data?.name}
             </Link>
@@ -69,6 +69,18 @@ export const Sidebar = (idBook: { idBook: string }) => {
               >
                 <IconNote />
                 <span className="ml-3">Notes</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={{
+                  pathname: "/books/[id]/kanban",
+                  query: { id: idBook.idBook },
+                }}
+                className="flex items-center rounded-lg py-2 text-base font-normal text-gray-900 hover:bg-slate-100 dark:text-white dark:hover:bg-gray-700 pl-8"
+              >
+                <IconBrandTrello />
+                <span className="ml-3">Kanban</span>
               </Link>
             </li>
           </ul>
