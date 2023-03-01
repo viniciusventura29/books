@@ -31,7 +31,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
       await util.notes.getAllNotes.invalidate();
       setBody("");
       setTitle("");
-      setColor("white");
+      setColor("bg-white");
       modalSideProps.setOpenSideModal(false)
     },
   });
@@ -62,7 +62,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
         bookId: modalSideProps.bookId,
         title: title,
         body: body,
-        color: color ? color : "white",
+        color: color ? color : "bg-white",
       });
     }
   };
