@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import type { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { api } from "../../../utils/api";
