@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import type { Dispatch, FormEvent, SetStateAction } from "react";
 import { useState } from "react";
 import { api } from "../../utils/api";
+import { useAlert } from "../global/Alert";
 
 export interface ICreateCollectionProps {
   isOpen: boolean
@@ -10,12 +11,14 @@ export interface ICreateCollectionProps {
 
 export default function CreateCollection({ setIsOpen, isOpen }: ICreateCollectionProps) {
   const utils = api.useContext();
+  const trigger = useAlert()
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const { mutate } = api.book.createBook.useMutation({
     onSuccess() {
       void utils.book.getAll.invalidate();
+      trigger({text:"Sua coleção foi criada sem erros!", title:"coleção criada com sucesso", type:"Success"})
     }
   });
 

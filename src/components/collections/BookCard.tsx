@@ -2,6 +2,7 @@ import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import { api } from "../../utils/api";
 import { RouterOutputs } from "../../pages/api/trpc/[trpc]";
+import { useAlert } from "../global/Alert";
 
 const OptionsComponent = ({
   id,
@@ -11,9 +12,11 @@ const OptionsComponent = ({
   showOptions: boolean;
 }) => {
   const util = api.useContext();
+  const trigger = useAlert()
   const deleteBook = api.book.deleteBook.useMutation({
     onSuccess: () => {
       void util.book.getAll.invalidate();
+      trigger({text:"Sua coleção foi deletada!", title:"coleção deletada com sucesso", type:"Success"})
     },
   });
 
