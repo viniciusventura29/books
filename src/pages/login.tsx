@@ -2,15 +2,17 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useAlert } from "../components/global/Alert";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const trigger = useAlert();
 
   const login = (e: FormEvent) => {
     e.preventDefault();
     void signIn("credentials", {callbackUrl:"/books", email, password });
+    trigger({text:"Você agora está autenticado!", title:"Login bem sucedido", type:"Success"})
   };
 
   return (

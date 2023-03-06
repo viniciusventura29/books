@@ -61,7 +61,6 @@ export const SideModal = (modalSideProps: IModalSide) => {
       })
     }
     else {
-      console.log(color)
       createNote.mutate({
         bookId: modalSideProps.bookId,
         title: title,
