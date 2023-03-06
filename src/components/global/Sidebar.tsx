@@ -36,7 +36,7 @@ export const Sidebar = (idBook: { idBook: string }) => {
       >
         <div className="h-full overflow-y-auto bg-slate-50 dark:bg-gray-800">
           <div className="flex items-center gap-5">
-            <div className="hover:bg-gray-200 rounded ml-6 p-1" onClick={()=>window.history.back()}>
+            <div className="hover:bg-gray-200 rounded ml-6 p-1 cursor-pointer" onClick={()=>window.history.back()}>
               <IconChevronLeft />
             </div>
             <Link

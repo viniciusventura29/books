@@ -30,7 +30,7 @@ export default function TasksBooks(props: { id: { id: string } }) {
       setThereNoTodo(true)
     }
     if (todoList.data?.length !== 0){
-      setThereNoTodo(true)
+      setThereNoTodo(false)
     }
     else if (todoList.data?.length > 5){
       setThereMoreTodo(true)
