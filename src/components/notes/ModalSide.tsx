@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { api } from "../../utils/api";
+import { useAlert } from "../global/Alert";
 
 interface IModalSide {
   openSideModal: boolean;
@@ -15,6 +16,7 @@ interface IModalSide {
 
 export const SideModal = (modalSideProps: IModalSide) => {
   const util = api.useContext();
+  const trigger = useAlert()
 
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
@@ -33,6 +35,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
       setTitle("");
       setColor("bg-white");
       modalSideProps.setOpenSideModal(false)
+      trigger({text:"Sua nota foi criada sem erros!", title:"Nota criada com sucesso", type:"Success"})
     },
   });
 
@@ -43,6 +46,7 @@ export const SideModal = (modalSideProps: IModalSide) => {
       setTitle("");
       modalSideProps.setOpenSideModal(false)
       modalSideProps.setEditing(false)
+      trigger({text:"Sua nota foi alterada sem erros!", title:"Nota atualizada com sucesso", type:"Success"})
     },
   });
 

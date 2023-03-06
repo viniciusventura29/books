@@ -2,6 +2,7 @@ import { IconPencil } from "@tabler/icons-react";
 import { Dispatch, SetStateAction } from "react";
 import { api } from "../../utils/api";
 import { IconX } from "@tabler/icons-react";
+import { useAlert } from "../global/Alert";
 
 interface INote {
   id: string;
@@ -20,10 +21,12 @@ interface INote {
 
 export const SingleNote = (note: INote) => {
   const util = api.useContext();
+  const trigger = useAlert()
 
   const deleteNote = api.notes.deleteNote.useMutation({
     onSuccess: () => {
       void util.notes.getAllNotes.invalidate();
+      trigger({text:"Sua nota foi deletada com sucesso!", title:"Nota deletada com sucesso!", type:"Success"})
     },
   });
 
