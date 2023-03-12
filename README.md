@@ -22,6 +22,3 @@ This is a website developed to improve and assist you doing your personal tasks!
 
 ### Created by
 [viniciusventura29](https://github.com/viniciusventura29)
-
-#### Our organization
-[MonkeyDevs](https://github.com/monkey-developers)
