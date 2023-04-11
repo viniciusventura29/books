@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ProfileButton } from "../components/global/ProfileButton";
 import { BookCard } from "../components/collections/BookCard";
 import { getServerAuthSession } from "../server/auth";
-import { GetServerSidePropsContext } from "next";
+import type { GetServerSidePropsContext } from "next";
 import { IconHome2 } from "@tabler/icons-react";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
