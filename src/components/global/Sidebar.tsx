@@ -1,4 +1,4 @@
-import { IconBrandTrello, IconChevronLeft, IconListCheck, IconNote } from "@tabler/icons-react";
+import { IconBrandTrello, IconChevronLeft, IconListCheck, IconNote, IconNotebook } from "@tabler/icons-react";
 import Link from "next/link";
 import { api } from "../../utils/api";
 
@@ -81,6 +81,18 @@ export const Sidebar = (idBook: { idBook: string }) => {
               >
                 <IconBrandTrello />
                 <span className="ml-3">Kanban</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={{
+                  pathname: "/books/[id]/text",
+                  query: { id: idBook.idBook },
+                }}
+                className="flex items-center rounded-lg py-2 text-base font-normal text-gray-900 hover:bg-slate-100 dark:text-white dark:hover:bg-gray-700 pl-8"
+              >
+                <IconNotebook />
+                <span className="ml-3">Text</span>
               </Link>
             </li>
           </ul>
